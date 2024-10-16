@@ -1,13 +1,34 @@
 
 import { useState } from "react";
+import api from "../../../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Nav() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    try{
+      const token = localStorage.getItem('refresh')
+
+      const res = await api.post('logout', {token})
+      localStorage.clear()
+      delete api.defaults.headers.common["Authorization"];
+      navigate('/login')
+
+    }
+    catch (err) {
+      console.log(err)
+      localStorage.clear()
+      delete api.defaults.headers.common["Authorization"];
+      navigate('/login')
+    }
+  }
 
   return (
     <div className="h-20 shadow-sm shadow-sky-600 fixed top-0 left-0 right-0 z-50 bg-black">
       <div className="flex justify-between items-center h-full mx-8">
-        <h1 className="font-bold text-2xl text-white">DevHive</h1>
+        <h1 onClick={() => navigate('/')} className="font-bold text-2xl cursor-default">DevHive</h1>
 
         {/* Hamburger Menu Icon (visible on small screens) */}
         <div className="md:hidden flex items-center" onClick={() => setIsOpen(!isOpen)}>
@@ -20,20 +41,22 @@ function Nav() {
 
         {/* Menu Items */}
         <div className={`md:flex space-x-8 mr-8 font-bold hidden ${isOpen ? "block" : "hidden"} md:space-x-8`}>
-          <p className="text-white">Users</p>
-          <p className="text-white">Tags</p>
+          <p onClick={() => navigate('/users')} className="text-white cursor-pointer">Users</p>
+          <p onClick={() => navigate('/tags')} className="text-white">Tags</p>
           <p className="text-white">Q&A</p>
           <div className="avatar text-white">O</div>
+          <p className="cursor-pointer" onClick={handleLogout}>Logout</p>
         </div>
       </div>
 
       {/* Mobile Menu (dropdown) */}
       {isOpen && (
         <div className="md:hidden flex flex-col space-y-2 mt-4 text-center">
-          <p className="text-white">Users</p>
-          <p className="text-white">Tags</p>
+          <p onClick={() => navigate('users')} className="text-white">Users</p>
+          <p onClick={() => navigate('tags')} className="text-white">Tags</p>
           <p className="text-white">Q&A</p>
           <div className="avatar text-white">O</div>
+          <div className="cursor-pointer" onClick={handleLogout}>Logout</div>
         </div>
       )}
     </div>

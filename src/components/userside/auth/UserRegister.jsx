@@ -88,19 +88,19 @@ function UserRegister() {
                             <div className='mx-16 mt-12 flex justify-center flex-col gap-6 '>
                                 <div className='relative '>
                                     {error.username && <p className='absolute right-1 rounded text-red-400 text-xs'>{error.username} </p> }
-                                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='enter your name'/>
+                                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='name'/>
                                 </div>
                                 <div className='relative '>
                                     {error.email && <p className='absolute right-1 rounded text-red-400 text-xs'>{error.email} </p> }
-                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='enter your email'/>
+                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='email'/>
                                 </div>
                                 <div className='relative '>
                                     {error.password && <p className='absolute right-1 rounded text-red-400 text-xs'>{error.password} </p> }
-                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='enter your password'/>
+                                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='password'/>
                                 </div>
                                 <div className='relative '>
                                     {error.confPass && <p className='absolute right-1 rounded text-red-400 text-xs'>{error.confPass} </p> }
-                                    <input type="password" value={confPass} onChange={(e) => setConfPass(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='conform your password'/>
+                                    <input type="password" value={confPass} onChange={(e) => setConfPass(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='conform password'/>
                                 </div>
 
                                 <button type='submit' className='bg-red-500 h-10 rounded-md'> Register </button>

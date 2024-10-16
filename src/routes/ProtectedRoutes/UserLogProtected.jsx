@@ -10,7 +10,7 @@ function UserLogProtected({children, redirectTo}) {
     console.log(useSelector(state => state.auth));
     
 
-    if (role) {
+    if (role === 'user') {
         return <Navigate to = {redirectTo} replace />
     }
     return children 

@@ -16,14 +16,16 @@ function ProtectedRoute({children}) {
     const refreshToken = async () => {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN)
         try{
-            const res = await api.post('token/refresh/', {refresh:refreshToken})
+            const res = await api.post('token/refresh', {refresh:refreshToken})
 
             if (res.status === 200) {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access)
                 setIsAuthorized(true)
-            } else{
+            } 
+            else{
                 setIsAuthorized(false)
             }
+
         }
         catch(error) {
             console.log(error)
@@ -44,10 +46,11 @@ function ProtectedRoute({children}) {
         const tokenExpiration = decoded.exp
         const now = Date.now() / 1000
 
+
         if (tokenExpiration < now) {
             await refreshToken()
         } 
-        else {
+        else{
             setIsAuthorized(true)
         }
     }

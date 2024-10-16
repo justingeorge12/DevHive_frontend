@@ -16,7 +16,7 @@ function AdminProtected({children}) {
     const refreshToken = async () => {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN)
         try{
-            const res = await api.post('token/refresh/', {refresh:refreshToken})
+            const res = await api.post('token/refresh', {refresh:refreshToken})
             
             if (res.status === 200) {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access)
@@ -42,8 +42,8 @@ function AdminProtected({children}) {
             return
         }
 
-        const decode = jwtDecode(token)
-        const tokenExpiration = decode.exp
+        const decoded = jwtDecode(token)
+        const tokenExpiration = decoded.exp
         const now = Date.now() / 1000
 
 
@@ -59,7 +59,7 @@ function AdminProtected({children}) {
             return <div> Loading... </div>
         }
 
-        console.log(isAuthorized, '7777777777777777777777777777')
+        
         return isAuthorized ? children : <Navigate to = '/admin/login' />
 }
 

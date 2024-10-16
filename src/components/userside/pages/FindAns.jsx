@@ -1,10 +1,16 @@
+import Nav from "../NavFoot/Nav"
 
 function FindAns() {
     return(
         <div>
+
+        
+        <Nav />
+        <div>
             slkjfsl
 
             hey asnsweres
+        </div>
         </div>
     )
 }

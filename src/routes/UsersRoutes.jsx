@@ -10,6 +10,8 @@ import HomePage from "../components/userside/pages/HomePage";
 import NotFound from "../components/common/NotFound";
 import FindAns from "../components/userside/pages/FindAns";
 import UserLogProtected from "./ProtectedRoutes/UserLogProtected";
+import ListUsers from "../components/userside/pages/ListUsers";
+import ListTags from "../components/userside/pages/ListTags";
 
 
 function Logout() {
@@ -37,6 +39,9 @@ function UsersRoutes() {
             <Route path="/" element={<ProtectedRoute> <HomePage /> </ProtectedRoute> } />
             <Route path="*" element={<NotFound />} />
             <Route path="/find" element={<ProtectedRoute> <FindAns /> </ProtectedRoute> } />
+            <Route path="/users" element={<ProtectedRoute>  <ListUsers/>  </ProtectedRoute>} />
+            <Route path="/tags" element={<ProtectedRoute>  <ListTags />  </ProtectedRoute>} />
+            
         </Routes>
     )
 }
