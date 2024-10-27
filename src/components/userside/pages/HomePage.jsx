@@ -19,27 +19,53 @@ function HomePage() {
                 <div className="mx-6 mt-32">
 
                     <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] border-yellow-200 border-4 shadow-md  shadow-yellow-300 rounded-3xl">
-                        <div className="mt-6 ml-6">
-                            w{counter}jey
-                            {/* <p>{auth}</p> */}
+                        <div className="relative mt-4">
+                            <button className="right-4 absolute text-gray-400 font-bold px-4 py-2 shadow-sm shadow-yellow-50 rounded-lg"> Users</button>
                         </div>
                     </div>
                     
                     <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] md:ml-auto border-4 bg-black rounded-3xl border-green-400 ">
-                        <div>
-                            <button onClick={() => navigate('/find')} className="border border-y-lime-400 px-2 py-2 rounded-lg"> Ask Question </button>
+                        <div className="relative mt-4">
+                            <button className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-green-200 rounded-lg">Questions</button>
                         </div>
                     </div>  
 
                     <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] border-sky-400 border-4 rounded-3xl ">
-                        <div>
-                            <button className="border px-2 py-2 rounded-lg"> Find Answers </button>
+                        <div className="relative mt-4">
+                            <button className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-sky-200 rounded-lg"> Find Answers </button>
                         </div>
                     </div>
                     
-                    <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] border-rose-700 border-4 md:ml-auto rounded-3xl">
-                    <div>
-                            <button className="border px-2 py-2 rounded-lg"> connect devi's </button>
+                    <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] border-rose-700 shadow-md shadow-rose-600 border-4 md:ml-auto rounded-3xl bg-gradient-to-t  from-stone-800 from-1% to-black-050 to-95%">
+                        <div className="relative mt-4">
+                            <button className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-rose-300 rounded-lg"> connect devi's </button>
+                        </div>
+                        <div className="relative hidden sm:block">
+                            <p className="absolute mt-20 left-48 px-1 text-red-500 text-opacity-45">◇</p>
+                            <button className="absolute mt-28 left-56 px-4 py-1 rounded-xl bg-red-500 bg-opacity-45 text-black font-semibold">danii</button>
+                            <p className="absolute mt-40 left-56 px-1 text-red-500 text-opacity-45">◇</p>
+                            <button className="absolute mt-48 left-40 px-4 py-1 rounded-xl bg-red-500 bg-opacity-35 text-black font-semibold">sahal</button>
+                        </div>
+                        <div className="flex justify-around p-2 mt-12 ">
+                            <div className=" w-72  rounded-xl border border-zinc-800 bg-gradient-to-t from-stone-800">
+                                <div className="p-6 text-slate-500">
+                                    <p>hey</p>
+                                    <p>.</p>
+                                    <p>.</p>
+                                    <p>.</p>
+                                    <p>.</p>
+                                    <p>.</p>
+                                    <p>.</p>
+                                    <p>.</p>
+                                    <p>.</p>
+                                    <p>.</p>
+                                    <p>.</p>
+
+                                </div> 
+                            </div>
+                            {/* <div className="w-52 border">
+
+                            </div> */}
                         </div>
                     </div><br />
                 </div>  

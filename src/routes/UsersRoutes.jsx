@@ -12,6 +12,11 @@ import FindAns from "../components/userside/pages/FindAns";
 import UserLogProtected from "./ProtectedRoutes/UserLogProtected";
 import ListUsers from "../components/userside/pages/ListUsers";
 import ListTags from "../components/userside/pages/ListTags";
+import Questions from "../components/userside/pages/Questions";
+import AskQuestion from "../components/userside/pages/QA/AskQuestion";
+import Answer from "../components/userside/pages/QA/Answer";
+import Profile from "../components/userside/pages/Profile";
+import ProfQuesDetails from "../components/userside/pages/ProfileCompo/details/ProfQuesDetails";
 
 
 function Logout() {
@@ -41,6 +46,11 @@ function UsersRoutes() {
             <Route path="/find" element={<ProtectedRoute> <FindAns /> </ProtectedRoute> } />
             <Route path="/users" element={<ProtectedRoute>  <ListUsers/>  </ProtectedRoute>} />
             <Route path="/tags" element={<ProtectedRoute>  <ListTags />  </ProtectedRoute>} />
+            <Route path="/questions" element={<ProtectedRoute> <Questions /> </ProtectedRoute>} />
+            <Route path="/askquestion" element={<ProtectedRoute> <AskQuestion /> </ProtectedRoute>} />
+            <Route path="/answer" element={<ProtectedRoute> <Answer /> </ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
+            <Route path="/userquestion" element={<ProtectedRoute> <ProfQuesDetails /> </ProtectedRoute>} />
             
         </Routes>
     )

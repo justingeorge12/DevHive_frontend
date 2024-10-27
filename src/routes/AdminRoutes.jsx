@@ -5,6 +5,7 @@ import Tags from "../components/adminside/pages/Tags"
 import AdminProtected from "./ProtectedRoutes/admin/AdminProtected"
 import AdminLogProtect from "./ProtectedRoutes/admin/AdminLogProtect"
 import ListUser from "../components/adminside/pages/ListUser"
+import Questions from "../components/userside/pages/Questions"
 
 function AdminRoutes() {
 
@@ -17,6 +18,7 @@ function AdminRoutes() {
                 {/* <Route path="/" element={<Dashboard /> } /> */}
                 <Route path="/tags" element={<AdminProtected> <Tags /> </AdminProtected> } />
                 <Route path="/users" element={<AdminProtected> <ListUser /> </AdminProtected>} />
+                {/* <Route path="/question" element={<AdminProtected><Questions / </AdminProtected>} */}
             </Routes>
         </>
     )

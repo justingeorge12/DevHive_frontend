@@ -80,7 +80,7 @@ function UserLogin() {
                 toast.error('server error')
             }
             else if(error.status === 401) {
-                toast.error('you are not authenticated')
+                toast.error('No active account with this credentials')
             }
             else{
                 toast.error('Your email and password are not matching')
@@ -101,6 +101,9 @@ function UserLogin() {
 
         try{
             const res = await api.get('/getemail', {params:{email:email}})
+
+            console.log(res)
+
             if (res.status === 200) {
                 navigate('/forgetpass', {state : {email}})
             }

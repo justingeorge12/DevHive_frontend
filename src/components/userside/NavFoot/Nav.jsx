@@ -42,9 +42,9 @@ function Nav() {
         {/* Menu Items */}
         <div className={`md:flex space-x-8 mr-8 font-bold hidden ${isOpen ? "block" : "hidden"} md:space-x-8`}>
           <p onClick={() => navigate('/users')} className="text-white cursor-pointer">Users</p>
-          <p onClick={() => navigate('/tags')} className="text-white">Tags</p>
-          <p className="text-white">Q&A</p>
-          <div className="avatar text-white">O</div>
+          <p onClick={() => navigate('/tags')} className="text-white cursor-pointer">Tags</p>
+          <p onClick={() => navigate('/questions')} className="text-white cursor-pointer">Q&A</p>
+          <div onClick={() => navigate('/profile')} className="avatar text-white cursor-pointer">profile</div>
           <p className="cursor-pointer" onClick={handleLogout}>Logout</p>
         </div>
       </div>
@@ -52,9 +52,9 @@ function Nav() {
       {/* Mobile Menu (dropdown) */}
       {isOpen && (
         <div className="md:hidden flex flex-col space-y-2 mt-4 text-center">
-          <p onClick={() => navigate('users')} className="text-white">Users</p>
-          <p onClick={() => navigate('tags')} className="text-white">Tags</p>
-          <p className="text-white">Q&A</p>
+          <p onClick={() => navigate('users')} className="text-white cursor-pointer">Users</p>
+          <p onClick={() => navigate('tags')} className="text-white cursor-pointer">Tags</p>
+          <p className="text-white cursor-pointer">Q&A</p>
           <div className="avatar text-white">O</div>
           <div className="cursor-pointer" onClick={handleLogout}>Logout</div>
         </div>

@@ -36,7 +36,10 @@ function ListTags() {
             catch (err) {
                 console.log(err)
                 if (err.message === "Network Error") {
-                    toast.error('server error')
+                    toast.error(err.message)
+                }
+                else if(err.status === 500) {
+                    toast.error('internal server error')
                 }
                 else{
                     toast.error('error while fetch data')
