@@ -30,6 +30,48 @@ function UserLogin() {
     }, [forgtTme])
 
 
+    const handleSignInWithGoogle = async (response) => {
+        const payload = response.credential
+        try{
+            const server_res = await api.post('google', {"access_token":payload})
+            console.log(server_res,'ssssssssrvr res')
+            console.log(server_res.data)
+            if (server_res.status === 200) {
+                localStorage.setItem(ACCESS_TOKEN, server_res.data.access_token)
+                localStorage.setItem(REFRESH_TOKEN, server_res.data.refresh_token
+                )
+                navigate('/')
+            }
+        }
+        catch(err) {
+            console.log(err, 'its catched errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
+            if (err.status === 401) {
+                if(err.response && err.response.data && err.response.data.detail && err.response.data.detail === "please continue your login with email") {
+                    toast.error('please login manually with your email')
+                }
+            }
+        }
+    }
+
+ 
+    // for google auth
+    useEffect(() => {
+        google.accounts.id.initialize({
+            client_id: import.meta.env.VITE_CLIENT_ID,
+            callback:handleSignInWithGoogle
+        })
+        google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+            theme: "outline",
+            size: "large",
+            // text: "signin_with",
+            // shape:"circle",
+            width: "300",
+            background_color : 'black'
+          });
+
+    }, [])
+
+
     const validateInputs = () => {
         const newErr = {}
 
@@ -157,8 +199,11 @@ function UserLogin() {
                             <hr className='mt-4  border-dashed border-pink-600'/>
                             
                             <div className='flex justify-around mt-6 '>
-                                <FcGoogle size={24} className='hover:cursor-pointer' />
-                                <FaGithub size={24} className='hover:cursor-pointer' />
+                                <FcGoogle size={24}  className='hover:cursor-pointer' />
+                                {/* <FaGithub size={24} className='hover:cursor-pointer' /> */}
+                                <div id='signInDiv'>
+
+                                </div>
                             </div>
                             <div className='justify-center flex mt-6'>
                                 <p>I don't have account ! <span onClick={() => {navigate('/register')}} className='hover:text-red-500 cursor-pointer'>Signup</span></p>

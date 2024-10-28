@@ -7,6 +7,8 @@ import Nav from '../NavFoot/Nav'
 import EditProfile from './ProfileCompo/EditProfile'
 import toast from "react-hot-toast"
 import { MdLocationOn } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+import ChangePassword from './ProfileCompo/ChangePassword'
 
 
 function Profile() {
@@ -18,6 +20,8 @@ function Profile() {
     const [answerCompo, setAnswerCompo] = useState(false)
     const [saveCompo, setSaveCompo] = useState(false)
     const [editProf, setEditProf] = useState(false)
+    const [openSetting, setOpenSetting] = useState(false)
+    const [changePass, setChangePass] = useState(false)
 
 
     useEffect(() => {
@@ -67,9 +71,23 @@ function Profile() {
             <Nav />
             <div className="m-24">
                 <div className='border relative border-gray-900 bg-gradient-to-br from-black-050  via-gray-900 to-black-050 rounded-xl'>
-                    <div className='absolute right-4 top-4 border bg-slate-900 border-slate-400 p-2 rounded-md font-semibold text-slate-300 hover:bg-black hover:shadow-lg hover:shadow-slate-800'>
-                        <button onClick={() => setEditProf(!editProf)}>⨭ Edit Profile</button>
+                    <div className='absolute right-4 top-4 font-semibold text-slate-300'>
+                        <div className='flex'>
+                            <button onClick={() => {setChangePass(false); setOpenSetting(false); setEditProf(!editProf)}} className='border p-2 border-slate-500 rounded-md hover:bg-black-050 hover:shadow-lg hover:shadow-slate-800' >⨭ Edit Profile</button>
+                            <button onClick={() => {setOpenSetting(!openSetting); setEditProf(false); setChangePass(false)} } className=' p-2 ml-2 rounded-md hover:bg-black-050 hover:shadow-lg hover:shadow-slate-800 '><IoSettingsOutline size={26} /></button>
+                        </div>
+                        {openSetting && 
+                            <div className='border text-sm font-normal pl-3 border-gray-700 rounded-md p-2 bg-black-050 mt-1' >
+                                <button onClick={() => setChangePass(!changePass)}> change password </button>
+                            </div>
+                        }
                     </div>
+                    {changePass && 
+                    <div className=''>
+                        <ChangePassword onClose={() => setChangePass(false)} />
+                    </div>
+                    }
+
                     {editProf && 
                     <div> <EditProfile user={user} onClose={() => setEditProf(false)} /> </div> }
                     <div className='flex items-center gap-10 p-4'>
@@ -88,12 +106,12 @@ function Profile() {
                                 <p>Software Engineering</p>
                                 {user.skill && <p className='mt-1'><span className='text-slate-600'>skill:</span> {user.skill ? `${user.skill} `: ''} </p>}
                                 {user.bio && <p className='mt-1'><span className='text-slate-600'>bio:</span> {user.bio ? ` ${user.bio}` : ''}</p>}
-                                {user.location && <p className='flex items-center'><span className='text-slate-600 flex items-center '><MdLocationOn />:<span className='mr-1' /> </span>       {user.location} </p>}
+                                {user.location && user.location !=='null' && <p className='flex items-center'><span className='text-slate-600 flex items-center '><MdLocationOn />:<span className='mr-1' /> </span>       {user.location} </p>}
                             </div>
-                            <div className='flex gap-4'>
+                            {/* <div className='flex gap-4'>
                                 <p>insta</p>
                                 <p>github</p>
-                            </div>
+                            </div> */}
 
                             
                         </div>
