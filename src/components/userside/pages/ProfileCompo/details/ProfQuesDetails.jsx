@@ -1,34 +1,80 @@
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import api from "../../../../../services/api"
 import Nav from "../../../NavFoot/Nav"
+import EditQuestion from "../modal/EditQuestion"
 
 function ProfQuesDetails() {
 
     const location = useLocation()
+    const navigate = useNavigate()
+
+    const [question, setQuestion] = useState([])
     const [quesAnswers, setQuesAnswers] = useState([])
     const [loading, setLoading] = useState(false)
     const question_id = location.state?.question_id || ''
+    const saved = location.state?.saved || ''
+    const [qustionDeleteModal, setQustionDeleteModal] = useState(false)
+    const [questionEditModal, setQuestionEditModal] = useState(false)
+    const [questBody, setQuestBody] = useState(false)
+
     
-    useEffect(() => {
-        const fetchAnsw = async () => {
-            try{
-                setLoading(true)
-                const res = await api.get('useranswer')
-                setQuesAnswers(res.data)
-                console.log(res)
-            }
-            catch(err) {
-                console.log(err)
-            }
-            finally{
-                setLoading(false)
-            }
+
+    const fetchQuest = async () => {
+        try{
+            setLoading(true)  
+            const quesRes = await api.get(`questionmanage/${question_id}`)
+            console.log(quesRes, 'qqqqqqqqqqqqqstn')
+            setQuestion(quesRes.data)
         }
+        catch(err){
+            console.log(err)
+        }
+        finally{
+            setLoading(false)
+        }
+    }
+
+    const fetchAnsw = async () => {
+        try{
+            setLoading(true)
+            const res = await api.get(`userquestionanswer/${question_id}`)
+            setQuesAnswers(res.data)
+            console.log(res)
+        }
+        catch(err) {
+            console.log(err)
+        }
+        finally{
+            setLoading(false)
+        }
+    }
+
+
+
+    useEffect(() => {
 
         fetchAnsw()
+        fetchQuest()
 
     }, [])
+
+
+    const deleteUserQuestionhandle = async () => {
+
+        try{
+            
+            console.log(question_id, 'id id id idid id ididi ')
+            const res = await api.delete(`deleteuserquestion/${question_id}`)
+            console.log(res)
+            navigate('/profile')
+            
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+
 
 
     return(
@@ -36,33 +82,74 @@ function ProfQuesDetails() {
             <Nav />
             <div className="mt-20">
                 <div className="m-24 border border-slate-900">
+                    {questionEditModal && 
+                        <div>
+                            <EditQuestion question={question} onClose={() => setQuestionEditModal(false)} fetchQuest={fetchQuest} />
+                        </div>
+                    }
                     <div className="m-6">
 
-                    <div className="p-4 border border-slate-700 rounded-md ">
-                        <div className="flex justify-between">
+                        <div className="p-4 border border-slate-700 rounded-md ">
+                            <div className="flex justify-between">
 
-                            <p className="text-lg font-bold text-sky-200"> what is today's moodl sldkfj jf lskjdf slkfjs lfjslfkj sldfjl;k sfljslfkj slfj slfkjls fjslfjlsd fjlskj lskfj ;slfkjaslfk jsldfkj ;alkfdjsls fslfj lsjdflkjsdfkjkdfj skjfksdj fskdj  ? </p>
-                            <div className="whitespace-nowrap"> <p className="bg-slate-800 px-1"> 12-3-2024 </p> </div>
-                        </div>
-                        <div className="flex justify-between mt-4">
-                            <div className="flex text-gray-600">
-                                #java # sql
+                                <p className="text-lg font-bold text-sky-200"> {question.title} </p>
+                                <div className="whitespace-nowrap"> <p className="bg-slate-800 px-1"> {question.created} </p> </div>
                             </div>
-                            <p className="text-slate-400">Answers: 89</p>
+                        
+                            <div className="mt-10">
+                                <p className="text-slate-400">Question Body <span className="text-slate-800"> . . . . . . . .</span> {questBody ? <span className="cursor-pointer" onClick={() => setQuestBody(false)}>▽</span> : <span className="cursor-pointer" onClick={() => setQuestBody(true)}>▷</span>}  </p>
+                                {questBody &&
+                                    <div className="border border-slate-800 mt-4">
+                                        <div className="p-4">
+                                            <div className=" p-2 text-red-100" dangerouslySetInnerHTML={{ __html: question.body }} />
+                                        
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+
+                        <div className="flex justify-between mt-4">
+                            
+                            <p className="text-slate-400">Answers: {question.answer_count}</p>
                         </div>
-                        <button className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-semibold text-gray-400 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"> Close Answer </button>
+
+                        
+
+
+                        {qustionDeleteModal && 
+                    <div className="flex justify-center">
+                        <div className="absolute border border-gray-600 shadow-lg shadow-slate-800 rounded-md p-4 bg-black ">
+                            <div className=" justify-center">
+                                <h1 className="text-2xl">Are you Really wanna delete the question ??</h1>
+                                <p className="text-red-400 ml-4">you will lose all the answer and you cannot undo this !! </p>
+                            </div>
+                            <div className="flex justify-between mx-6 mt-10 mb-4">
+                                <button onClick={() => setQustionDeleteModal(false)} className="border border-slate-600 text-slate-300 px-6  py-1 rounded-md">No</button>
+                                <button onClick={deleteUserQuestionhandle} className="border border-red-500 text-red-300 px-6  py-1 rounded-md">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                    }
+
+
+                        {/* <button className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-semibold text-gray-400 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"> Close Answer </button> */}
+                        <button onClick={() => {setQustionDeleteModal(false); setQuestionEditModal(!questionEditModal) }}  className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-semibold text-gray-400 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%">  Edit </button>
+
+                        <button onClick={() => setQustionDeleteModal(!qustionDeleteModal)} className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-500 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"> Delete Question </button>
 
                     </div>
+                    
 
                         <div className="mt-10">
-                            {quesAnswers.map((answ) => (
-                                <div className="p-4 border border-slate-900 my-6 flex justify-between">
+                            {quesAnswers.map((answ, indx) => (
+                                <div key={indx} className="p-4 border border-slate-900 my-6 flex justify-between">
                                     <div dangerouslySetInnerHTML={{ __html: answ.body }}  />
-                                    <div className=" px-2 border border-slate-800 flex items-center">
+                                    {!saved && <div className=" px-2 border border-slate-800 flex items-center">
                                         <div>
                                             <button className=" whitespace-nowrap border border-slate-800 text-green-300 p-2 flex justify-center">Accept answer</button>
                                         </div>
-                                    </div>
+                                    </div>}
                                 </div>
                             
                             ))}
@@ -75,3 +162,7 @@ function ProfQuesDetails() {
 }
 
 export default ProfQuesDetails
+
+
+
+

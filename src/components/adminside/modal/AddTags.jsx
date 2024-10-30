@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import api from "../../../services/api"
 import toast from "react-hot-toast"
 
-function AddTags({onClose, tag}) {
+function AddTags({onClose, tag , fetchData}) {
 
     const [name, setName] = useState('')
     const [descrip, setDescrip] = useState('')
@@ -60,6 +60,7 @@ function AddTags({onClose, tag}) {
             if (res.status === 201  || res.status === 200) {
                 toast.success(`tag ${tag ? 'updated' : 'added'} successfully`)
                 onClose()
+                fetchData()
             }
             else{
                 toast.error('your inputs are not valid')

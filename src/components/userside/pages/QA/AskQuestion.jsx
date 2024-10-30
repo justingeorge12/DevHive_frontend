@@ -297,7 +297,6 @@ function AskQuestion() {
                                                     ))}
                                                 </div>
                                                 {error.tags && <p className="text-red-400 text-xs">{error.tags}</p>}
-
                                                 <input type="text" value={input} placeholder="Enter a tag" onKeyDown={handleKeyDown} onChange={handleChange} className="bg-black-050 border-slate-400 w-full p-2 border"/>
                                                 <div className="p-2 border border-zinc-600">
                                                     {TagDatabase.map((data) => (

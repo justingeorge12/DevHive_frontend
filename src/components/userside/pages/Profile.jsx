@@ -9,6 +9,7 @@ import toast from "react-hot-toast"
 import { MdLocationOn } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import ChangePassword from './ProfileCompo/ChangePassword'
+import SavedCompo from './ProfileCompo/SavedCompo'
 
 
 function Profile() {
@@ -131,7 +132,8 @@ function Profile() {
 
                     {coinCompo && 
                     <div>
-                        <h1> You have {user.coins} coin </h1>
+                        <h1> You have {user.coins ? user.coins : '0'} coin </h1>
+                        {console.log(user.coin , '-------------c oooooooooooo   i        nnnnn') }
                     </div> }
 
                     <div>
@@ -142,6 +144,11 @@ function Profile() {
                     <div>
                         {answerCompo && 
                         <AnswerComo />}
+                    </div>
+                    <div>
+                        {saveCompo && 
+                        <SavedCompo />
+                        }
                     </div>
 
                     

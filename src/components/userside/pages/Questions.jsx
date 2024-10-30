@@ -18,18 +18,20 @@ function Questions() {
     const [userVote, setUserVote] = useState('')
 
 
-    useEffect(() => {
-        const fetchQuestion = async () => {
-            try{
+    const fetchQuestion = async (filteroption) => {
+        try{
 
-                const res = await api.get('questionlist')
-                
-                setQuestions(res.data)
-                console.log(res)
-            } catch(err) {
-                console.log(err)
-            }
+            const res = await api.get(`questionlist?filter=${filteroption}`)
+            
+            setQuestions(res.data)
+            console.log(res)
+        } catch(err) {
+            console.log(err)
         }
+    }
+
+
+    useEffect(() => {
 
         fetchQuestion()
     }, [userVote])
@@ -38,10 +40,15 @@ function Questions() {
     const handleVote = async (id , type) => {
         try{
             const res = await api.post('managequesvote',{question_id:id, vote_type:type})
-
+            if(res.status === 200) {
+                fetchQuestion()            
+            }
         }
         catch(err) {
             console.log(err)
+            if (err.status === 403) {
+                toast.error('you cannot upvote or downvote for your own question')
+            }
         }
     }
 
@@ -79,15 +86,15 @@ function Questions() {
                     </div>
 
                     <div className="flex justify-between mt-6">
-                        <div className="text-sm">2,355 questions</div>
+                        <div className="text-sm"> {questions.length} questions</div>
                         <div>
                             <div className="flex gap-2 justify-end">
                                 {sortOptions && 
                                 <div className="p-1 px-3 text-zinc-400 rounded-md border border-zinc-600 flex gap-3 ">
-                                    <p>Active</p>
-                                    <p>Answered</p>
-                                    <p>Accepted</p>
-                                    <p>UnAnswered</p>
+                                    <p onClick={() => fetchQuestion('active')} className="cursor-pointer">Active</p>
+                                    <p onClick={() => fetchQuestion('answered')} className="cursor-pointer">Answered</p>
+                                    <p onClick={() => fetchQuestion('accepted')} className="cursor-pointer">Accepted</p>
+                                    <p onClick={() => fetchQuestion('unanswered')} className="cursor-pointer">UnAnswered</p>
                                 </div>
                                 }
                                 <button onClick={() => setSortOptions(!sortOptions)} className="p-1 border border-black-050 text-gray-300"> ↜ sort</button>
@@ -95,9 +102,9 @@ function Questions() {
                             <div className="flex justify-end mt-1 gap-1">
                                 {filterOptions && 
                                 <div className="p-1 px-3 text-zinc-400 rounded-md border border-zinc-600 flex gap-3 ">
-                                    <p>votes</p>
-                                    <p>Newest</p>
-                                    <p>alphabet</p>
+                                    <p onClick={() => fetchQuestion('votes')} className="cursor-pointer">votes</p>
+                                    <p onClick={() => fetchQuestion('newest')} className="cursor-pointer">Newest</p>
+                                    <p onClick={() => fetchQuestion('alphabet')} className="cursor-pointer">alphabet</p>
                                 </div>
                                 }
                                 <button onClick={() => setFilterOptions(!filterOptions)} className="p-1 border border-black-050 text-gray-300 " >↜ filter</button>
@@ -115,6 +122,14 @@ function Questions() {
                             </div>
                         ))}
                     </div> */}
+
+                    {questions.length ===0 && 
+                    <div>
+                        <div className="mt-10 p-4 border border-red-200 ">
+                            <p> there are no question <span className="text-red-500"> !!!! </span></p> 
+                        </div>
+                    </div>
+                    }
 
                     {questions.map((question) => (
 
@@ -146,11 +161,12 @@ function Questions() {
                         </div>
                         <div className="px-4 mt-2 border border-neutral-900 flex justify-between">
                             <div className="flex gap-4">
+                                {console.log(question.user, '-----------------kityaa ----------------')}
                                 <p onClick={() => handleVote(question.id, 'upvote')} className="text-red-200 cursor-pointer"><span className="text-xs text-gray-400">upvote </span>⇧</p> 
                                 <p onClick={() => handleVote(question.id, 'downvote')} className="text-red-200 cursor-pointer"><span className="text-xs text-gray-400">downvote</span> ⇩</p>
                             </div>
                             <div>
-                                <MdBookmarkAdd onClick={() => handleSave(question.id)} size={22} color="gray" />
+                                <MdBookmarkAdd onClick={() => handleSave(question.id)} size={22} color="gray" className="cursor-pointer" />
                             </div>
                         </div>
                         <div className="flex">

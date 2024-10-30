@@ -124,6 +124,9 @@ function UserLogin() {
             else if(error.status === 401) {
                 toast.error('No active account with this credentials')
             }
+            else if (error.response.data.status[0] === "blocked_account") {
+                toast.error('You are blocked by admin ')
+            }
             else{
                 toast.error('Your email and password are not matching')
             }

@@ -38,7 +38,13 @@ function AdminLogin() {
 
             } 
             catch (error) {
-                toast.error('your credentails are incorrrect')
+                if(error.message && error.message === 'Network Error'){
+                    toast.error('Network Error')
+                }
+                else{
+
+                    toast.error('your credentails are incorrrect')
+                }
             }
             finally{
                 setLoading(false)

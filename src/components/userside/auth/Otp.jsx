@@ -73,7 +73,7 @@ function Otp() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`OTP Entered: ${otp.join('')}`);
+    // alert(`OTP Entered: ${otp.join('')}`);
 
     const otpString = otp.join('')
     

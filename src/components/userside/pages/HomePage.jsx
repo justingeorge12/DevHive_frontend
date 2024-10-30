@@ -20,25 +20,58 @@ function HomePage() {
 
                     <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] border-yellow-200 border-4 shadow-md  shadow-yellow-300 rounded-3xl">
                         <div className="relative mt-4">
-                            <button className="right-4 absolute text-gray-400 font-bold px-4 py-2 shadow-sm shadow-yellow-50 rounded-lg"> Users</button>
+                            <button onClick={() => navigate('/users')} className="right-4 absolute text-gray-400 font-bold px-4 py-2 shadow-sm shadow-yellow-50 rounded-lg"> Users</button>
+                        </div>
+                        <div className="m-10">
+                            <div className="text-3xl border border-green-100 p-4 rounded-md mr-16">
+                                find your buddies from here 
+                            </div>
+                            <div className="text-2xl mt-6 ml-10 border border-green-100 p-4 rounded-md mr-16">
+                                Follow them 
+                            </div>
+                            <div className="text-xl mt-6 ml-20 border border-green-100 p-4 rounded-md mr-16">
+                                Interact with them 
+                            </div>
                         </div>
                     </div>
                     
                     <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] md:ml-auto border-4 bg-black rounded-3xl border-green-400 ">
                         <div className="relative mt-4">
-                            <button className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-green-200 rounded-lg">Questions</button>
+                            <button onClick={() => navigate('/questions')} className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-green-200 rounded-lg">Questions</button>
+                        </div>
+                        <div className="m-10">
+                            <div className="text-3xl border border-green-100 p-4 rounded-md mr-24">
+                                find your Answer for Bugs
+                            </div>
+                            <div className="text-2xl mt-6 ml-10 border border-green-100 p-4 rounded-md mr-24">
+                                Or Ask Question
+                            </div>
+                            <div className="text-xl mt-6 ml-20 border border-green-100 p-4 rounded-md mr-24">
+                                Get Answer from Public
+                            </div>
                         </div>
                     </div>  
 
                     <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] border-sky-400 border-4 rounded-3xl ">
                         <div className="relative mt-4">
-                            <button className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-sky-200 rounded-lg"> Find Answers </button>
+                            <button onClick={() => navigate('/tags')} className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-sky-200 rounded-lg"> Find Tags </button>
+                        </div>
+                        <div className="m-10">
+                            <div className="text-3xl border border-green-100 p-4 rounded-md mr-24">
+                                find Tags for add in your question
+                            </div>
+                            <div className="text-2xl mt-6 ml-10 border border-green-100 p-4 rounded-md mr-24">
+                                Add it in your question
+                            </div>
+                            <div className="text-xl mt-6 ml-20 border border-green-100 p-4 rounded-md mr-24">
+                                so Others can find your question easily
+                            </div>
                         </div>
                     </div>
                     
                     <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] border-rose-700 shadow-md shadow-rose-600 border-4 md:ml-auto rounded-3xl bg-gradient-to-t  from-stone-800 from-1% to-black-050 to-95%">
                         <div className="relative mt-4">
-                            <button className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-rose-300 rounded-lg"> connect devi's </button>
+                            <button onClick={() => navigate('/users')} className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-rose-300 rounded-lg"> connect devi's </button>
                         </div>
                         <div className="relative hidden sm:block">
                             <p className="absolute mt-20 left-48 px-1 text-red-500 text-opacity-45">◇</p>

@@ -55,11 +55,11 @@ function Sidebar() {
                 isSidebarOpen ? 'transform-none' : '-translate-x-full lg:translate-x-0'
             }`}>
                 <ul className="pt-6 font-semibold">
-                    <li onClick={() => { navigate('/admin/users'); setIsSidebarOpen(false); }} className="text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">List users</li>
-                    <li onClick={() => { navigate('/admin/tags'); setIsSidebarOpen(false); }} className="text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">List Tags</li>
-                    <li className="text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">List Question</li>
-                    <li className="text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">Down Voted Questions</li>
-                    <li className="text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">Down Voted Answers</li>
+                    <li onClick={() => { navigate('/admin/users'); setIsSidebarOpen(false); }} className="cursor-pointer text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">List users</li>
+                    <li onClick={() => { navigate('/admin/tags'); setIsSidebarOpen(false); }} className="cursor-pointer text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">List Tags</li>
+                    <li onClick={() => { navigate('/admin/allquestions'); setIsSidebarOpen(false)}} className="cursor-pointer text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">List Question</li>
+                    {/* <li className="text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">Down Voted Questions</li>
+                    <li className="text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">Down Voted Answers</li> */}
                     <li className="text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">Products</li>
                     <li className="text-white p-2 pl-4 border border-transparent hover:border-orange-400 hover:bg-zinc-800">Order requests</li>
                 </ul>

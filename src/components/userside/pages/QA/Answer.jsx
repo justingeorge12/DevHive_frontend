@@ -79,7 +79,6 @@ function Answer() {
 
         try{
             const res = await api.post('addlistanswer',{question:question_id, body:value})
-            console.log(res, 'rslt  ')
             setValue('')
 
             if (res.status === 201 ) {
@@ -87,7 +86,6 @@ function Answer() {
             }
         }
         catch (err) {
-            console.log(err)
             setValue('')
             toast.error('there is a isssue with submition')
         }

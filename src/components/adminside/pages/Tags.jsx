@@ -22,24 +22,23 @@ function Tags() {
     const [postPerPage, setPostPerPage] = useState(5)
 
     
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try{
-                setLoading(true)
-                const res = await api.get('tags/')
-                setList(res.data)
-            }
-
-            catch (error) {
-                console.log(error)
-
-            }
-            finally{
-                setLoading(false)
-            }
+    const fetchData = async () => {
+        try{
+            setLoading(true)
+            const res = await api.get('tags/')
+            setList(res.data)
         }
 
+        catch (error) {
+            console.log(error)
+
+        }
+        finally{
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
         fetchData()
     }, [])
 
@@ -84,6 +83,7 @@ function Tags() {
             
             if (res.status === 204) {
                 toast.success('tag is deleted successfully ')
+                fetchData()
             }
             console.log(res, 'reeeeeeeeeeeeeeees ')
             console.log(res.status, 'staaaaaaaatus')
@@ -115,7 +115,7 @@ function Tags() {
                         <input type="text" className="border border-zinc-600 bg-black-050 rounded-md p-1 pl-4" placeholder="search tag"/>
                     </div>
                     {addModel && (
-                        <AddTags onClose={handleCloseModal} tag={currentTag} />
+                        <AddTags onClose={handleCloseModal} tag={currentTag} fetchData={fetchData} />
                     )}
 
                     {tagDelete && (
