@@ -7,20 +7,24 @@ import { useNavigate } from "react-router-dom"
 function AdminQuestion() {
 
     const [question, setQuestion] = useState([])
+    const [search, setSearch] = useState("")
+
 
     const navigate = useNavigate()
 
+    const fetchAllQuestion = async (searchTerm = "") => {
+
+        const res = await api.get(`listquestion?search=${searchTerm}`)
+        console.log(res, 'ressss')
+        setQuestion(res.data)
+    }
+
+
     useEffect(() => {
 
-        const fetchAllQuestion = async () => {
-            const res = await api.get('listquestion')
-            console.log(res, 'rrrrrrrrrrrrrrrssssssssss')
-            setQuestion(res.data)
-        }
+        fetchAllQuestion(search)
 
-        fetchAllQuestion()
-
-    }, [])
+    }, [search])
 
     return(
         <div>
@@ -29,6 +33,12 @@ function AdminQuestion() {
             <Sidebar />
             <div className="lg:ml-[200px]">
                 <h1 className="text-2xl font-bold mt-6 flex justify-center">Questions</h1>
+
+                <div className="flex justify-center mt-2">
+                        <form onSubmit={(e) => e.preventDefault()}> 
+                            <input onChange={(e) => setSearch(e.target.value)} value={search} type="text" className="border border-zinc-600 bg-black-050 rounded-md p-1 pl-4" placeholder="Search question"/>
+                        </form>
+                    </div>
 
                 <div className="m-10 border">
 

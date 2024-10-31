@@ -20,7 +20,7 @@ function Dashboard() {
                             </div>
                         </div>
                         <div className="w-full md:w-[48%] h-[400px]  rounded-lg shadow-md bg-black shadow-pink-100 flex items-center justify-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:shadow-pink-500">
-                            <button className="absolute top-4 right-4 border border-pink-300 text-pink-300 px-4 py-2 rounded">Questions</button>
+                            <button onClick={() => navigate('allquestions/')} className="absolute top-4 right-4 border border-pink-300 text-pink-300 px-4 py-2 rounded">Questions</button>
                             <div className="m-10  justify-center items-center">
                                 <h1 className="font-sans text-xl text-red-100">Questions asked by users</h1>
                                 <p className="mt-10 text-lg font-mono text-red-200">"Stay informed and engaged! Here’s where you can explore all the questions from our community, helping us foster a vibrant and knowledgeable environment."</p>

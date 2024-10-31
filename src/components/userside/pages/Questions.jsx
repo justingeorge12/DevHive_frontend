@@ -12,29 +12,67 @@ function Questions() {
 
     const navigate = useNavigate()
 
+    const [loading, setLoading] = useState(false)
     const [sortOptions, setSortOptions] = useState(false)
     const [filterOptions, setFilterOptions] = useState(false)
     const [questions, setQuestions] = useState([])
     const [userVote, setUserVote] = useState('')
+    const [hasMore, setHasMore] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [filter, setFilter] = useState('votes');
+
+    const [totalQuestion, settotalQuestion] = useState(null)
+    const [nextUrl, setNextUrl] = useState('questionlist?filter=&page=1');
+    
 
 
-    const fetchQuestion = async (filteroption) => {
+    
+
+
+    const fetchQuestion = async () => {
+        setLoading(true)
         try{
+            // const res = await api.get(`questionlist?filter=${filteroption}&page=${currentPage}`)
+            const res = await api.get(nextUrl);
+            settotalQuestion(res.data.count)
+            const newQuestions = res.data.results || [];
 
-            const res = await api.get(`questionlist?filter=${filteroption}`)
+            setQuestions(prevQuestions => {
+                const existingIds = new Set(prevQuestions.map(q => q.id));
+                return [...prevQuestions, ...newQuestions.filter(q => !existingIds.has(q.id))];
+            });
+
+            setNextUrl(res.data.next || null);
+
             
-            setQuestions(res.data)
-            console.log(res)
-        } catch(err) {
-            console.log(err)
         }
+        catch(err) {
+            console.log(err);
+        }
+        finally {
+            setLoading(false);
+        }
+    
     }
-
 
     useEffect(() => {
 
         fetchQuestion()
-    }, [userVote])
+    }, [userVote, filter])
+
+
+    const handleLoadMore = () => {
+        if (nextUrl) {
+            fetchQuestion();
+        }
+    }
+
+
+    const handleFilterChange = (newFilter) => {
+        setFilter(newFilter);
+        setQuestions([]); 
+        setNextUrl(`questionlist?filter=${newFilter}&page=1`);
+    };
 
 
     const handleVote = async (id , type) => {
@@ -86,15 +124,16 @@ function Questions() {
                     </div>
 
                     <div className="flex justify-between mt-6">
-                        <div className="text-sm"> {questions.length} questions</div>
+                        {/* {console.log()} */}
+                        <div className=""> {totalQuestion} Questions</div>
                         <div>
                             <div className="flex gap-2 justify-end">
                                 {sortOptions && 
                                 <div className="p-1 px-3 text-zinc-400 rounded-md border border-zinc-600 flex gap-3 ">
-                                    <p onClick={() => fetchQuestion('active')} className="cursor-pointer">Active</p>
-                                    <p onClick={() => fetchQuestion('answered')} className="cursor-pointer">Answered</p>
-                                    <p onClick={() => fetchQuestion('accepted')} className="cursor-pointer">Accepted</p>
-                                    <p onClick={() => fetchQuestion('unanswered')} className="cursor-pointer">UnAnswered</p>
+                                    <p onClick={() => handleFilterChange('active')} className="cursor-pointer">Active</p>
+                                    <p onClick={() => handleFilterChange('answered')} className="cursor-pointer">Answered</p>
+                                    <p onClick={() => handleFilterChange('accepted')} className="cursor-pointer">Accepted</p>
+                                    <p onClick={() => handleFilterChange('unanswered')} className="cursor-pointer">UnAnswered</p>
                                 </div>
                                 }
                                 <button onClick={() => setSortOptions(!sortOptions)} className="p-1 border border-black-050 text-gray-300"> ↜ sort</button>
@@ -102,9 +141,9 @@ function Questions() {
                             <div className="flex justify-end mt-1 gap-1">
                                 {filterOptions && 
                                 <div className="p-1 px-3 text-zinc-400 rounded-md border border-zinc-600 flex gap-3 ">
-                                    <p onClick={() => fetchQuestion('votes')} className="cursor-pointer">votes</p>
-                                    <p onClick={() => fetchQuestion('newest')} className="cursor-pointer">Newest</p>
-                                    <p onClick={() => fetchQuestion('alphabet')} className="cursor-pointer">alphabet</p>
+                                    <p onClick={() => handleFilterChange('votes')} className="cursor-pointer">votes</p>
+                                    <p onClick={() => handleFilterChange('newest')} className="cursor-pointer">Newest</p>
+                                    <p onClick={() => handleFilterChange('alphabet')} className="cursor-pointer">alphabet</p>
                                 </div>
                                 }
                                 <button onClick={() => setFilterOptions(!filterOptions)} className="p-1 border border-black-050 text-gray-300 " >↜ filter</button>
@@ -112,16 +151,6 @@ function Questions() {
                         </div>
                     </div>
 
-                    {/* <div className="mt-2">
-                        {questions.map((ques) => (
-
-                            <div className="border">
-                                <p>{ques.answers}</p>
-                                <p>{ques.question}</p>
-                                <p>{ques.expl}</p>
-                            </div>
-                        ))}
-                    </div> */}
 
                     {questions.length ===0 && 
                     <div>
@@ -138,7 +167,7 @@ function Questions() {
                         <div className="pl-4 py-1 border border-slate-900  bg-gradient-to-tr from-slate-900 via-black-050 to-black-050 ">
                             <div className="flex justify-between">
                                 <div className="flex gap-2 items-center">
-                                    <img src={avatar} alt="profile" className="h-12 w-12 rounded" />
+                                    <img src={question.user.profile} alt="profile" className="h-12 w-12 rounded" />
                                     <p className="font-semibold">{question.user.username} </p>
                                 </div>
                                 <div className="mr-2">
@@ -161,7 +190,6 @@ function Questions() {
                         </div>
                         <div className="px-4 mt-2 border border-neutral-900 flex justify-between">
                             <div className="flex gap-4">
-                                {console.log(question.user, '-----------------kityaa ----------------')}
                                 <p onClick={() => handleVote(question.id, 'upvote')} className="text-red-200 cursor-pointer"><span className="text-xs text-gray-400">upvote </span>⇧</p> 
                                 <p onClick={() => handleVote(question.id, 'downvote')} className="text-red-200 cursor-pointer"><span className="text-xs text-gray-400">downvote</span> ⇩</p>
                             </div>
@@ -179,6 +207,25 @@ function Questions() {
 
 
                 </div>
+
+                {/* <div className="flex justify-center mb-6">
+                    {hasMore && (
+                        <button onClick={handleLoadMore} disabled={loading} className="load-more mt-4 p-2 bg-red-500 rounded text-gray-200">
+                        {loading ? 'Loading...' : 'Load More'}
+                    </button>
+                )}
+                </div> */}
+
+                <div className="flex justify-center mb-6">
+                    {nextUrl && (
+                        <button onClick={handleLoadMore} disabled={loading} className="mt-4 p-2 bg-red-500  rounded text-gray-200">
+                            {loading ? 'Loading...' : 'Load more'}
+                        </button>
+                    )}
+                </div>
+
+
+
             </div>
             <div className="h-1 shadow-2xl shadow-red-500 bg-gradient-to-r from-lime-400 via-orange-400 to-green-400"></div>
         </div>

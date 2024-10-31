@@ -17,15 +17,17 @@ function Tags() {
     const [loading, setLoading] = useState(false)
     const [expandDesc, setExpandDesc] = useState(null)
     const [tagDelete, setTagDelete] = useState(null)
+    const [search, setSearch] = useState("")
 
     const [currentPage, setCurrentPage] = useState(1)
     const [postPerPage, setPostPerPage] = useState(5)
 
     
-    const fetchData = async () => {
+    const fetchData = async (searchTerm = "") => {
+        
         try{
             setLoading(true)
-            const res = await api.get('tags/')
+            const res = await api.get(`tags/?search=${searchTerm}`)
             setList(res.data)
         }
 
@@ -39,8 +41,14 @@ function Tags() {
     }
 
     useEffect(() => {
-        fetchData()
-    }, [])
+        fetchData(search)
+    }, [search])
+
+    // useEffect(() => {
+    //     fetchData(search)
+    // }, [search])
+
+
 
     const lastPostIndex = currentPage * postPerPage
     const firstPostIndex = lastPostIndex - postPerPage
@@ -112,7 +120,9 @@ function Tags() {
                         
                     </div> 
                     <div className="flex justify-center mt-2">
-                        <input type="text" className="border border-zinc-600 bg-black-050 rounded-md p-1 pl-4" placeholder="search tag"/>
+                        <form onSubmit={(e) => e.preventDefault()}> 
+                            <input onChange={(e) => setSearch(e.target.value)} value={search} type="text" className="border border-zinc-600 bg-black-050 rounded-md p-1 pl-4" placeholder="Search tag"/>
+                        </form>
                     </div>
                     {addModel && (
                         <AddTags onClose={handleCloseModal} tag={currentTag} fetchData={fetchData} />

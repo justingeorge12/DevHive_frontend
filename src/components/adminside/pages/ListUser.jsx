@@ -9,12 +9,13 @@ function ListUser() {
     const [userlist, setUserlist] = useState([])
     const [blockModal, setBlockModal] = useState(false)
     const [selectedUserId, setSelectedUserId] = useState(null)
+    const [search, setSearch] = useState("")
 
     // const users = [{id:1, name:'sahad', email:'sahad@gmail.com',DofJoin:'4-7-2012', action:'block'},{id:3, name:'danish', email:'danish@gmail.com',DofJoin:'16-7-2023', action:'block'},{id:9, name:'jasir', email:'jasir@gmail.com',DofJoin:'4-2-2022', action:'block'}]
 
-    const fetchData = async () => {
+    const fetchData = async (searchTerm = "") => {
         try {
-            const res = await api.get('usermanage')
+            const res = await api.get(`usermanage?search=${searchTerm}`)
             setUserlist(res.data)
         }
         catch (err) {
@@ -27,8 +28,8 @@ function ListUser() {
 
 
     useEffect(() => {
-        fetchData()
-    },[])
+        fetchData(search)
+    },[search])
 
     const handleBlock = async (id) => {
         try{
@@ -58,7 +59,12 @@ function ListUser() {
                 <div className="flex justify-center">
                     <h2 className="text-2xl font-bold my-4">Users</h2>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center mt-2">
+                        <form onSubmit={(e) => e.preventDefault()}> 
+                            <input onChange={(e) => setSearch(e.target.value)} value={search} type="text" className="border border-zinc-600 bg-black-050 rounded-md p-1 pl-4" placeholder="Search users"/>
+                        </form>
+                    </div>
+                <div className="flex justify-center mt-6">
                     <div className="w-full max-w-3xl"> 
                         <div className="flex justify-around p-3 font-semibold border border-gray-300">
                             <h1 className="w-1/6 text-center">Id</h1>

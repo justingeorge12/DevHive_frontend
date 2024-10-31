@@ -150,7 +150,17 @@ function QuestionManage() {
                         }
                     </div>
                 </div>
+
+                
+
                 <div className="m-10 border border-slate-800 ">
+                {questionDetail.answer_count === 0 
+                    ?
+                    <div className="mt-6 p-4 border border-red-200 ">
+                        <p> there are no answer for this question <span className="text-red-500"> !!!! </span></p> 
+                    </div>
+                    : 
+                
                     <div className="m-6">
                         <div className="flex">
                             <h1 className="text-2xl border-b border-slate-700 ">Answers</h1>
@@ -182,6 +192,7 @@ function QuestionManage() {
                             
                         </div>
                     </div>
+                    }
                 </div>
             </div>
         </div>
