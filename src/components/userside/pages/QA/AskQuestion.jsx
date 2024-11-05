@@ -143,15 +143,30 @@ function AskQuestion() {
     const handleFormSubmit = async (e) => {
         e.preventDefault()
 
-
         if (validateForm() ) {
-            const res = await api.post('questionlist',{title,body:value,tags:tags})
+            try{
 
-            setTitle('')
-            setValue('')
-            setTags([])
-            
-            toast.success('form validated succsflly')
+                const res = await api.post('questionlist',{title,body:value,tags:tags})
+                
+                setTitle('')
+                setValue('')
+                setTags([])
+                isChecked(false)
+                
+                toast.success('your Question submitted successfully')
+            } 
+            catch(err) {
+                console.log(err)
+                if (err.status === 400){
+                    if(err.response && err.response.data.tags){
+                        toast.error(err.response.data.tags[0])
+                    }
+                }
+                else{
+
+                    toast.error('there are some error, please try after some time')
+                }
+            }
         }
 
         else{

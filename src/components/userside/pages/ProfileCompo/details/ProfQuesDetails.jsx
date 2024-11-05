@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import api from "../../../../../services/api"
 import Nav from "../../../NavFoot/Nav"
 import EditQuestion from "../modal/EditQuestion"
+import ConfirmModal from "../modal/ConfirmModal"
 
 function ProfQuesDetails() {
 
@@ -17,6 +18,7 @@ function ProfQuesDetails() {
     const [qustionDeleteModal, setQustionDeleteModal] = useState(false)
     const [questionEditModal, setQuestionEditModal] = useState(false)
     const [questBody, setQuestBody] = useState(false)
+    const [closeAnsModal, setCloseAnsModal] = useState(false)
 
     
 
@@ -115,39 +117,61 @@ function ProfQuesDetails() {
                         </div>
 
                         
-
+                        {closeAnsModal && 
+                            
+                            <ConfirmModal onClose={() => setCloseAnsModal(false) } action={'close_answer'} status={question.closed} question_id={question.id} fetchQuest={fetchQuest} />
+                            
+                        }
 
                         {qustionDeleteModal && 
-                    <div className="flex justify-center">
-                        <div className="absolute border border-gray-600 shadow-lg shadow-slate-800 rounded-md p-4 bg-black ">
-                            <div className=" justify-center">
-                                <h1 className="text-2xl">Are you Really wanna delete the question ??</h1>
-                                <p className="text-red-400 ml-4">you will lose all the answer and you cannot undo this !! </p>
+                            <div className="flex justify-center">
+                                <div className="absolute border border-gray-600 shadow-lg shadow-slate-800 rounded-md p-4 bg-black ">
+                                    <div className=" justify-center">
+                                        <h1 className="text-2xl">Are you Really wanna delete the question ??</h1>
+                                        <p className="text-red-400 ml-4">you will lose all the answer and you cannot undo this !! </p>
+                                    </div>
+                                    <div className="flex justify-between mx-6 mt-10 mb-4">
+                                        <button onClick={() => setQustionDeleteModal(false)} className="border border-slate-600 text-slate-300 px-6  py-1 rounded-md">No</button>
+                                        <button onClick={deleteUserQuestionhandle} className="border border-red-500 text-red-300 px-6  py-1 rounded-md">Yes</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="flex justify-between mx-6 mt-10 mb-4">
-                                <button onClick={() => setQustionDeleteModal(false)} className="border border-slate-600 text-slate-300 px-6  py-1 rounded-md">No</button>
-                                <button onClick={deleteUserQuestionhandle} className="border border-red-500 text-red-300 px-6  py-1 rounded-md">Yes</button>
-                            </div>
-                        </div>
-                    </div>
-                    }
+                        }
 
 
                         {/* <button className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-semibold text-gray-400 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"> Close Answer </button> */}
                         <button onClick={() => {setQustionDeleteModal(false); setQuestionEditModal(!questionEditModal) }}  className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-semibold text-gray-400 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%">  Edit </button>
 
-                        <button onClick={() => setQustionDeleteModal(!qustionDeleteModal)} className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-500 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"> Delete Question </button>
+                        <div className="flex gap-4">
+
+                            <button onClick={() => {setQustionDeleteModal(!qustionDeleteModal); setQuestionEditModal(false); setCloseAnsModal(false)} } className="border w-full  border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-500 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"> Delete Question </button>
+                            {question.closed ?
+                                <button onClick={() => {setCloseAnsModal(!closeAnsModal); setQuestionEditModal(false); setQustionDeleteModal(false)} } className="border w-full  border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-100 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%">  Open Answers  </button>
+                            :   
+                                <button onClick={() => {setCloseAnsModal(!closeAnsModal); setQuestionEditModal(false); setQustionDeleteModal(false)} } className="border w-full  border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-100 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%">   Close Answers </button>
+                            }
+                        </div>
 
                     </div>
                     
 
                         <div className="mt-10">
                             {quesAnswers.map((answ, indx) => (
-                                <div key={indx} className="p-4 border border-slate-900 my-6 flex justify-between">
-                                    <div dangerouslySetInnerHTML={{ __html: answ.body }}  />
-                                    {!saved && <div className=" px-2 border border-slate-800 flex items-center">
+                                <div key={indx} className="p-4 border-2 border-slate-600 my-8 rounded-md flex justify-between">
+                                    <div>
+                                        <p className="text-lg mb-4 border-l pl-3 bg-gradient-to-r from-slate-900 from-10% via-black-050 via-30%">{indx + 1}</p>
+                                        <div dangerouslySetInnerHTML={{ __html: answ.body }}  />
+                                    </div>
+                                    
+                                    {!saved && <div className=" px-2 border border-slate-800 ml-1 flex items-center">
                                         <div>
-                                            <button className=" whitespace-nowrap border border-slate-800 text-green-300 p-2 flex justify-center">Accept answer</button>
+                                            {answ.is_acceptable ?
+
+                                                (
+                                                <button className=" whitespace-nowrap border border-slate-800 text-green-300 p-2 flex justify-center">Accept answer</button>)
+                                                : 
+                                                (<p className=" whitespace-nowrap border border-slate-800 text-gray-400 p-2 flex justify-center">your own answer</p>)
+                                            }
                                         </div>
                                     </div>}
                                 </div>

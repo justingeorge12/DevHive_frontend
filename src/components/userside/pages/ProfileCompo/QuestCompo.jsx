@@ -19,10 +19,6 @@ function QuestCompo(){
             setUserQues(res.data)
             setQuesLen(res.data.length)
 
-            console.log(res, '000000000000000000000000000000000000000000000000000000000000000000000000')
-
-            console.log(res.data.length, 'lllllllllllllllngthttttttttttttttt')
-
         }
 
         fetchUserQuestion()

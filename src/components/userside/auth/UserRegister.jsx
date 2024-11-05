@@ -1,5 +1,5 @@
 import xcolor from '../../../assets/images/xcolor.jpg'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import api from '../../../services/api'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -63,11 +63,16 @@ function UserRegister() {
 
         try{
             const res = await api.post('/register',{username, email, password})
-            
             navigate('/otp' , {state:{email}})
         }
         catch(error) {
-            toast.error('there is error with your data')
+            console.log(error)
+            if (error.message === "Network Error") {
+                toast.error('Network Error')
+            }
+            else{
+                toast.error('there is error with your data')
+            }
         }
         finally{
             setLoading(false)

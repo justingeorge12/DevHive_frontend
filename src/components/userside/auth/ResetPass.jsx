@@ -2,6 +2,7 @@ import { useState } from 'react'
 import xcolor from '../../../assets/images/blckgreen.jpg'
 import { useLocation, useNavigate } from 'react-router-dom'
 import api from '../../../services/api'
+import toast from 'react-hot-toast'
 
 function ResetPass() {
 
@@ -53,6 +54,8 @@ function ResetPass() {
         }
         catch (error) {
             console.log(error)
+            if(error.message === "Network Error")
+                toast.error('Network Error')
         }
         finally{
             setLoading(false)

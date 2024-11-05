@@ -2,14 +2,14 @@
 // import {motion} from 'framer-motion'
 import { useState, useRef } from 'react';
 import { motion, useScroll, useSpring } from "framer-motion";
-import profilImg from '../../../../assets/images/deBot.webp'
+import profilImg from '../../../../assets/images/noProfile.jpg'
 import api from '../../../../services/api';
 import toast from "react-hot-toast"
 
 
 
 
-function EditProfile({onClose, user}) {
+function EditProfile({onClose, user, fetchProfile}) {
 
     const scrollRef = useRef(null);
     const fileInputRef = useRef(null);
@@ -56,6 +56,7 @@ function EditProfile({onClose, user}) {
             
             if (res.status === 200) {
                 toast.success('your profile is updated')
+                fetchProfile()
             }
 
             onClose()
@@ -107,7 +108,7 @@ function EditProfile({onClose, user}) {
                     <form onSubmit={handleSubmit}>
                         <div className='flex justify-center mt-4'>
                             <div className=' p-2  rounded-3xl'>
-                                <img onClick={() => setChangeImg(true)} src={image ? URL.createObjectURL(image) : formData.profile} alt=""  className='w-20 h-20 border rounded-lg' />
+                                <img onClick={() => setChangeImg(true)} src={image ? URL.createObjectURL(image) : formData.profile || profilImg} alt=""  className='w-20 h-20 border rounded-lg' />
                             </div>
                         </div>
 

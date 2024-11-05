@@ -98,7 +98,6 @@ function EditQuestion({onClose, question, fetchQuest}) {
         debouce(async(searchtag) => {
             const res = await api.get('questiontags/',{params:{letter:searchtag}})
 
-            console.log(res, '----------------------calll for taaaaaaaaaaag')
             setTagDatabase(res.data)
 
         }, 1000), []
@@ -140,12 +139,16 @@ function EditQuestion({onClose, question, fetchQuest}) {
             }
             catch(err) {
                 console.log(err)
+                if (err.status === 400) {
+                    if (err.response.data && err.response.data.tags) {
+                        toast.error('Entered tag is not exist, check the suggestions')
+                    }
+                }
             }
             finally{
                 setLoading(false)
             }
             
-
         }
 
         else{

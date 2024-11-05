@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Nav from "../NavFoot/Nav"
-import avatar from '../../../assets/images/hjwrE.png'
+import noProfile from '../../../assets/images/noProfile.jpg'
 import { useNavigate } from "react-router-dom"
 
 import { MdBookmarkAdd } from "react-icons/md";
@@ -17,8 +17,6 @@ function Questions() {
     const [filterOptions, setFilterOptions] = useState(false)
     const [questions, setQuestions] = useState([])
     const [userVote, setUserVote] = useState('')
-    const [hasMore, setHasMore] = useState(true)
-    const [currentPage, setCurrentPage] = useState(1)
     const [filter, setFilter] = useState('votes');
 
     const [totalQuestion, settotalQuestion] = useState(null)
@@ -44,7 +42,6 @@ function Questions() {
 
             setNextUrl(res.data.next || null);
 
-            
         }
         catch(err) {
             console.log(err);
@@ -58,7 +55,7 @@ function Questions() {
     useEffect(() => {
 
         fetchQuestion()
-    }, [userVote, filter])
+    }, [ filter])
 
 
     const handleLoadMore = () => {
@@ -78,8 +75,17 @@ function Questions() {
     const handleVote = async (id , type) => {
         try{
             const res = await api.post('managequesvote',{question_id:id, vote_type:type})
+            console.log(res)
+
             if(res.status === 200) {
-                fetchQuestion()            
+                const { tot_posvote, tot_negvote} = res.data;
+                toast('thanks for your feedback 🪄')
+
+                setQuestions(prevQuestions => prevQuestions.map(question => 
+                    question.id === id ? {...question, pos_vote:tot_posvote, neg_vote:tot_negvote}
+                    :
+                    question
+                ))
             }
         }
         catch(err) {
@@ -167,14 +173,14 @@ function Questions() {
                         <div className="pl-4 py-1 border border-slate-900  bg-gradient-to-tr from-slate-900 via-black-050 to-black-050 ">
                             <div className="flex justify-between">
                                 <div className="flex gap-2 items-center">
-                                    <img src={question.user.profile} alt="profile" className="h-12 w-12 rounded" />
+                                    <img src={question.user.profile || noProfile } alt="profile" className="h-12 w-12 rounded" />
                                     <p className="font-semibold">{question.user.username} </p>
                                 </div>
                                 <div className="mr-2">
                                     <div className="flex items-center">
                                         <p className="mr-4 text-green-300">{question.accepted && <span>Accepted </span> } </p>
                                         <div>
-                                            <p className="flex justify-end text-sm text-orange-100">asked on {question.created} </p>
+                                            <p className="flex justify-end text-xs text-orange-100">asked on {question.created} </p>
                                             <p className="bg-slate-700 mt-1 px-1 ml-4 pl-2 rounded text-slate-400 border border-gray-800">Answers {question.answer_count} </p>
                                         </div>
                                     </div>
@@ -182,7 +188,7 @@ function Questions() {
                             </div>
                         </div>
                         <div className="mt-2 border border-neutral-900 pl-4">
-                            <h1 onClick={() => navigate('/answer',{state:{question_id:question.id}})} className="text-lg font-bold text-sky-200 cursor-pointer"> {question.title} </h1>
+                            <h1 onClick={() => navigate('/answer',{state:{question_id:question.id}})} className="text-lg font-bold text-sky-200 cursor-pointer"> {question.title} <span className="text-gray-600"> {question.closed ? '[ Closed ]' : ''} </span> </h1>
                             <div className="mt-1 p-1 text-red-100" dangerouslySetInnerHTML={{ __html: question.body }} />
                             <div className="flex gap-3 text-slate-400">{question.tags.map((tag, index) => (
                                 <p key={index}>{tag} </p>
@@ -198,9 +204,8 @@ function Questions() {
                             </div>
                         </div>
                         <div className="flex">
-
-                        <div className="px-4 mt-2">{question.pos_vote} </div>
-                        <div className="pl-12 mt-2">{question.neg_vote} </div>
+                            <div className="px-4 mt-2">{question.pos_vote} </div>
+                            <div className="pl-12 mt-2">{question.neg_vote} </div>
                         </div>
                     </div>
                     ))}

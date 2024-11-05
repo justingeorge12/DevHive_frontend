@@ -25,19 +25,20 @@ function Profile() {
     const [changePass, setChangePass] = useState(false)
 
 
+    
+    const fetchProfile = async () => {
+        
+        try{
+            const res = await api.get('userprofile/')
+            console.log(res)
+            setUser(res.data[0])
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }   
+    
     useEffect(() => {
-
-        const fetchProfile = async () => {
-
-            try{
-                const res = await api.get('userprofile/')
-                console.log(res)
-                setUser(res.data[0])
-            }
-            catch(err) {
-                console.log(err)
-            }
-        }   
 
         fetchProfile() 
     },[])
@@ -90,7 +91,7 @@ function Profile() {
                     }
 
                     {editProf && 
-                    <div> <EditProfile user={user} onClose={() => setEditProf(false)} /> </div> }
+                    <div> <EditProfile user={user} fetchProfile={fetchProfile} onClose={() => setEditProf(false)} /> </div> }
                     <div className='flex items-center gap-10 p-4'>
                         <div className='p-4'>
                             <img src={user.profile || profileImg} alt="profile" className=' h-40 w-40 border border-slate-500 rounded-3xl' />

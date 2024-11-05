@@ -39,7 +39,8 @@ function SavedCompo () {
                     <div key={indx} className="border  border-slate-700 mt-6 p-4 rounded">
                         <div className="flex justify-between">
                             
-                            <h1 onClick={() => {navigate('/userquestion',{state:{question_id:question.question.id,saved:'saved'}}); {console.log(question.question.id, 'qustin iddddddddd')}}} className="text-sky-200 font-bold text-lg cursor-pointer">{question.question.title}</h1>
+                            <h1 onClick={() => navigate('/answer',{state:{question_id:question.question.id}})} className="text-sky-200 font-bold text-lg cursor-pointer">{question.question.title}</h1>
+                            
                             <div className="ml-4 whitespace-nowrap text-slate-400"><p className="bg-gray-900 px-1"> {question.question.created} </p> </div>
                         </div>
                         <div className="flex justify-between mt-1">
