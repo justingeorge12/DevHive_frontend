@@ -23,14 +23,23 @@ function Questions() {
     const [nextUrl, setNextUrl] = useState('questionlist?filter=&page=1');
     
 
+    // this useEffect is I made for after asking question it should go to questin page and sort as newest so his question comes as first
 
+    // useEffect(() => {
+    //     const statefilter = location.state?.statefilter || '';
+
+    //     if (statefilter) {
+    //         setFilter('newest');
+    //         setNextUrl('questionlist?filter=newest&page=1');
+    //     }
+    // }, [location.state?.statefilter]);
+    
     
 
 
     const fetchQuestion = async () => {
         setLoading(true)
         try{
-            // const res = await api.get(`questionlist?filter=${filteroption}&page=${currentPage}`)
             const res = await api.get(nextUrl);
             settotalQuestion(res.data.count)
             const newQuestions = res.data.results || [];
@@ -130,7 +139,6 @@ function Questions() {
                     </div>
 
                     <div className="flex justify-between mt-6">
-                        {/* {console.log()} */}
                         <div className=""> {totalQuestion} Questions</div>
                         <div>
                             <div className="flex gap-2 justify-end">
@@ -209,17 +217,7 @@ function Questions() {
                         </div>
                     </div>
                     ))}
-
-
                 </div>
-
-                {/* <div className="flex justify-center mb-6">
-                    {hasMore && (
-                        <button onClick={handleLoadMore} disabled={loading} className="load-more mt-4 p-2 bg-red-500 rounded text-gray-200">
-                        {loading ? 'Loading...' : 'Load More'}
-                    </button>
-                )}
-                </div> */}
 
                 <div className="flex justify-center mb-6">
                     {nextUrl && (

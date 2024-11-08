@@ -9,6 +9,7 @@ import 'react-quill/dist/quill.snow.css'; // Import the styles
 import debouce from 'lodash.debounce'
 import api from "../../../../services/api";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -46,6 +47,8 @@ function AskQuestion() {
 
     const [error, setError] = useState([])                   // error validation
     const [isChecked, setIsChecked] = useState(false)        // checkbox
+
+    const navigate = useNavigate()
 
 
     const handleKeyDown = (e) => {
@@ -151,9 +154,10 @@ function AskQuestion() {
                 setTitle('')
                 setValue('')
                 setTags([])
-                isChecked(false)
+                setIsChecked(false)
                 
                 toast.success('your Question submitted successfully')
+                // navigate('/questions', {state:{statefilter:'newest'}})
             } 
             catch(err) {
                 console.log(err)
@@ -163,7 +167,7 @@ function AskQuestion() {
                     }
                 }
                 else{
-
+                    console.log(err, 'errrrrrrrrrrrrrrrrrrrrrrrrrrrrr rr')
                     toast.error('there are some error, please try after some time')
                 }
             }

@@ -36,7 +36,7 @@ function EditProfile({onClose, user, fetchProfile}) {
 
         const data = new FormData()
 
-        data.append('name', formData.name);
+        data.append('first_name', formData.name);
         data.append('skill', formData.skill);
         data.append('bio', formData.bio);
         data.append('phone', formData.phone);

@@ -68,6 +68,9 @@ function Profile() {
 
 
 
+    console.log(user)
+
+
     return(
         <div>
             <Nav />
@@ -105,7 +108,7 @@ function Profile() {
                                 
                             </div>
                             <div className='text-slate-300'>
-                                <p>Software Engineering</p>
+                                {user.first_name && <p className='mt-1'><span className='text-slate-600'>name:</span> {user.first_name ? `${user.first_name} `: ''} </p>}
                                 {user.skill && <p className='mt-1'><span className='text-slate-600'>skill:</span> {user.skill ? `${user.skill} `: ''} </p>}
                                 {user.bio && <p className='mt-1'><span className='text-slate-600'>bio:</span> {user.bio ? ` ${user.bio}` : ''}</p>}
                                 {user.location && user.location !=='null' && <p className='flex items-center'><span className='text-slate-600 flex items-center '><MdLocationOn />:<span className='mr-1' /> </span>       {user.location} </p>}

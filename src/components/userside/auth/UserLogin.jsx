@@ -182,9 +182,9 @@ function UserLogin() {
                             <div className='mx-16 mt-20 flex justify-center flex-col gap-10'>
                                 <div className='relative '>
                                     {error.email && <p className='absolute right-1 rounded text-red-400 text-xs'>{error.email} </p> }
-                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='email'/>
+                                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-3 ' placeholder='email'/>
                                 </div>
-                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-6' placeholder='password'/>
+                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='w-full h-10 bg-black border rounded-md pl-3' placeholder='password'/>
                                 <button type='submit' className='bg-red-500 h-10 rounded-md'> Login </button>
                                 
                             </div>
