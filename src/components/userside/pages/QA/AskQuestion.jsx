@@ -49,7 +49,8 @@ function AskQuestion() {
     const [isChecked, setIsChecked] = useState(false)        // checkbox
 
     const navigate = useNavigate()
-
+    const [fetchLoading, setFetchLoading] = useState(false)
+    const [relatedQuestions, setRelatedQuestions] = useState([]) // related questions
 
     const handleKeyDown = (e) => {
         const trimmedInput = input.trim();
@@ -135,6 +136,28 @@ function AskQuestion() {
 
 
 
+    const fetchRelatedQuestions = async (title) => {
+
+        try{
+            setFetchLoading(true)
+            const res = await api.get(`/elasticsearchquestion?q=${title}`)
+
+            setRelatedQuestions(res.data.results)
+
+
+        }
+        catch(err) {
+            console.log(err, '--------------')
+            toast.error('there is a error with fetching related questions')
+        }
+        finally{
+            setFetchLoading(false)
+        }
+
+    }
+
+
+// `/searchquestion/?q=${searchQuery}`
 
 
 
@@ -329,8 +352,27 @@ function AskQuestion() {
                                             <p>Are you trying to ask any of this question</p>
                                             <p className="text-xs text-gray-400">if you find your question, better not to ask your question again</p>
                                             <div className="mt-4">
-                                                <div className="border p-2 border-slate-400">
-                                                    ⇩
+                                                <div className="border p-2  border-slate-400">
+                                                    <p onClick={() => fetchRelatedQuestions(title)} className="mr-4 cursor-pointer"> ⇩ <span className="text-slate-400 text-sm">click here to see related qustions</span> </p> 
+                                                    <div className="ml-6">
+                                                        {fetchLoading && 
+                                                            <p> Loading.....</p>
+                                                        }
+                                                        <div>
+                                                            {relatedQuestions.map((data, indx) => (
+                                                                <div key={indx} className="border border-slate-600 p-2 m-1 text-cyan-100">
+                                                                    <h1 onClick={() => navigate('/answer',{state:{question_id:data.id}})} className="cursor-pointer">{data.title}</h1>
+                                                                    <div className="flex gap-4 mt-1">
+                                                                        <p className="text-gray-300 border border-gray-800 rounded-sm px-2"><span className="text-slate-400 text-sm">⇧ : </span> {data.pos_vote} </p>
+                                                                        <p className=" text-gray-300 border border-gray-800 rounded-sm px-2"><span className="text-slate-300 text-sm">⇩ : </span> {data.neg_vote} </p>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            ))}
+                                                            {/* <h1>what does the 'yield' keyword do in python</h1>
+                                                            <h1>what does the 'yield' keyword do in python</h1> */}
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

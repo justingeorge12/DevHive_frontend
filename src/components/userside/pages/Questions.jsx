@@ -18,12 +18,14 @@ function Questions() {
     const [questions, setQuestions] = useState([])
     const [userVote, setUserVote] = useState('')
     const [filter, setFilter] = useState('votes');
+    const [search, setSearch] = useState('')
+    const [searchResult, setSearchResult] = useState([])
 
     const [totalQuestion, settotalQuestion] = useState(null)
     const [nextUrl, setNextUrl] = useState('questionlist?filter=&page=1');
     
 
-    // this useEffect is I made for after asking question it should go to questin page and sort as newest so his question comes as first
+    // this useEffect is I made for after asking question(askQuestionpage) it should go to questin page and sort as newest so his question comes as first
 
     // useEffect(() => {
     //     const statefilter = location.state?.statefilter || '';
@@ -33,8 +35,20 @@ function Questions() {
     //         setNextUrl('questionlist?filter=newest&page=1');
     //     }
     // }, [location.state?.statefilter]);
+
+
+
+
+
+
+
+
+
+
     
-    
+    // if(searchResult) {
+    //     setQuestions(searchResult)
+    // }
 
 
     const fetchQuestion = async () => {
@@ -43,6 +57,7 @@ function Questions() {
             const res = await api.get(nextUrl);
             settotalQuestion(res.data.count)
             const newQuestions = res.data.results || [];
+            console.log(newQuestions)
 
             setQuestions(prevQuestions => {
                 const existingIds = new Set(prevQuestions.map(q => q.id));
@@ -122,6 +137,29 @@ function Questions() {
         }
     }
 
+    const handleSearch = async (e) => {
+        e.preventDefault()
+        if(search.trim() === ''){
+            return
+        }
+        try{
+            setLoading(true)
+            const res = await api.get(`/elasticsearchquestion?q=${search}`)
+            setSearchResult(res.data.results)
+            setQuestions(res.data.results);
+
+            console.log(res.data.results,'--------')
+        }
+        catch (err) {
+            console.log(err)
+
+            toast.error('there is a error while search')
+        }
+        finally{
+            setLoading(false)
+        }
+    }
+
 
 
     return(
@@ -134,9 +172,11 @@ function Questions() {
                         <button onClick={() => navigate('/askquestion')} className="p-2 md:text-sm text-xs text-neutral-400 border rounded-md border-x-orange-400 border-r-green-300 border-t-yellow-300 border-lime-300">ASK QUESTION</button>
                     </div>
 
-                    <div className="flex justify-center">
-                        <input type="text" className="bg-black-050 border border-zinc-500 rounded-lg p-1 w-2/5 pl-2" placeholder="search.."/>
-                    </div>
+                    <form onSubmit={handleSearch}>
+                        <div className="flex justify-center">
+                            <input onChange={(e) => setSearch(e.target.value)} type="text" className="bg-black-050 border border-zinc-500 rounded-lg p-1 w-2/5 pl-2" placeholder="search.."/>
+                        </div>
+                    </form>
 
                     <div className="flex justify-between mt-6">
                         <div className=""> {totalQuestion} Questions</div>
