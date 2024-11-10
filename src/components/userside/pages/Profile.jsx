@@ -23,6 +23,7 @@ function Profile() {
     const [editProf, setEditProf] = useState(false)
     const [openSetting, setOpenSetting] = useState(false)
     const [changePass, setChangePass] = useState(false)
+    const [followCount, setFollowCount] = useState([])
 
 
     
@@ -37,9 +38,25 @@ function Profile() {
             console.log(err)
         }
     }   
+
+    const fetchFollow = async () => {
+
+        try{
+            
+            const res = await api.get(`userfollowcount/${user.id}`)
+
+            console.log(res , '----------------------------------')
+            setFollowCount(res.data)
+
+            
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
     
     useEffect(() => {
-
+        fetchFollow()
         fetchProfile() 
     },[])
 
