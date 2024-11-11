@@ -1,6 +1,6 @@
 import Nav from "../../NavFoot/Nav"
 import avatar from '../../../../assets/images/noProfile.jpg'
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import api from "../../../../services/api"
 
@@ -14,6 +14,7 @@ import { useRef } from "react"
 function Answer() {
 
     const location = useLocation()
+    const navigate = useNavigate()
 
     const question_id = location.state?.question_id || ''
 
@@ -180,7 +181,7 @@ function Answer() {
                             <div className="flex justify-end border rounded-lg gap-4 border-slate-800">
                                 <p className="text-sm mt-1"> <span className="text-slate-400">asked:</span> {quesDetails.created} </p>
                                 <div className="items-center flex gap-2 bg-slate-900 px-2 py-1 rounded-md">
-                                    <img src={quesDetails.user?.profile || avatar} className="h-12 w-12 rounded" alt="" />
+                                    <img onClick={() => navigate(`/${quesDetails.user?.username}`,{state:{user_id:quesDetails.user?.id}})} src={quesDetails.user?.profile || avatar} className="h-12 w-12 rounded" alt="" />
                                     <div className="text-sm">
                                         <p>{quesDetails.user?.username} </p>
                                         <p className="text-xs text-gray-400">‣ {quesDetails.user?.total_votes}</p>
@@ -217,8 +218,8 @@ function Answer() {
                                 
                                 <div className="m-6">
                                     <div className="border border-slate-900 flex items-center p-2">
-                                        <img src={ans.user.profile} alt="" className="h-12 w-12 rounded" />
-                                        <h1 className="ml-6"> {ans.user.username} </h1>
+                                        <img onClick={() => navigate(`/${ans.user.username}`)} src={ans.user.profile} alt="" className="h-12 w-12 rounded cursor-pointer" />
+                                        <h1 onClick={() => navigate(`/${ans.user.username}`)} className="ml-6 cursor-pointer"> {ans.user.username} </h1>
                                     </div>
                                     <div className="mt-4 border border-slate-900 p-2">
                                         <div className="mt-1 p-1 text-red-100" dangerouslySetInnerHTML={{ __html: ans.body }} />

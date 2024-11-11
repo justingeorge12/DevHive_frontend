@@ -3,12 +3,15 @@ import profile from '../../../assets/images/noProfile.jpg'
 import { useEffect, useState } from "react"
 import api from "../../../services/api"
 import toast from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
 
 
 function ListUsers() {
     
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
+
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -60,7 +63,7 @@ function ListUsers() {
                                 <img src={data.profile || profile} alt="profile" className="h-16 w-16 rounded" />
                                 <div>
 
-                                <h1 className="text-[16px] font-semibold font-mono text-red-200">{data.username}</h1>
+                                <h1 onClick={() => navigate(`/${data.username}`)} className="text-[16px] cursor-pointer font-semibold font-mono text-red-200">{data.username}</h1>
                                 <h1 className="text-[14px] text-gray-500">{data.location}</h1>
                                 <h1 className="text-[14px] font-medium">{data.total_votes} </h1>
                                 {/* <div className="flex gap-2 flex-wrap">

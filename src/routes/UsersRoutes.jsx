@@ -17,6 +17,7 @@ import AskQuestion from "../components/userside/pages/QA/AskQuestion";
 import Answer from "../components/userside/pages/QA/Answer";
 import Profile from "../components/userside/pages/Profile";
 import ProfQuesDetails from "../components/userside/pages/ProfileCompo/details/ProfQuesDetails";
+import OtherUserProfile from "../components/userside/pages/Usermanage/OtherUserProfile";
 
 
 function Logout() {
@@ -43,7 +44,7 @@ function UsersRoutes() {
             <Route path="/resetpass" element={<UserLogProtected children={<ResetPass /> } redirectTo={'/'} /> } />
             <Route path="/" element={<ProtectedRoute> <HomePage /> </ProtectedRoute> } />
             <Route path="*" element={<NotFound />} />
-            <Route path="/find" element={<ProtectedRoute> <FindAns /> </ProtectedRoute> } />
+            {/* <Route path="/find" element={<ProtectedRoute> <FindAns /> </ProtectedRoute> } /> */}
             <Route path="/users" element={<ProtectedRoute>  <ListUsers/>  </ProtectedRoute>} />
             <Route path="/tags" element={<ProtectedRoute>  <ListTags />  </ProtectedRoute>} />
             <Route path="/questions" element={<ProtectedRoute> <Questions /> </ProtectedRoute>} />
@@ -51,6 +52,7 @@ function UsersRoutes() {
             <Route path="/answer" element={<ProtectedRoute> <Answer /> </ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
             <Route path="/userquestion" element={<ProtectedRoute> <ProfQuesDetails /> </ProtectedRoute>} />
+            <Route path="/:username" element={<ProtectedRoute> <OtherUserProfile /> </ProtectedRoute>} />
             
         </Routes>
     )

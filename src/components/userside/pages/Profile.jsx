@@ -42,8 +42,8 @@ function Profile() {
     const fetchFollow = async () => {
 
         try{
-            
-            const res = await api.get(`userfollowcount/${user.id}`)
+
+            const res = await api.get(`userfollowcount`)
 
             console.log(res , '----------------------------------')
             setFollowCount(res.data)
@@ -120,8 +120,8 @@ function Profile() {
                             <h1 className='text-3xl'>{user.username}</h1>
                             
                             <div className='mt-4 flex gap-4'>
-                                <p className='text-red-100'>324 Followers</p>
-                                <p className='text-red-100'>216 Following</p>
+                                <p className='text-red-100'> {followCount.follower_count} Followers</p>
+                                <p className='text-red-100'>{followCount.following_count} Following</p>
                                 
                             </div>
                             <div className='text-slate-300'>

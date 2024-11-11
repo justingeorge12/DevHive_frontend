@@ -56,21 +56,21 @@ function UserLogin() {
  
     // for google auth
     
-    // useEffect(() => {
-    //     google.accounts.id.initialize({
-    //         client_id: import.meta.env.VITE_CLIENT_ID,
-    //         callback:handleSignInWithGoogle
-    //     })
-    //     google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-    //         theme: "outline",
-    //         size: "large",
-    //         // text: "signin_with",
-    //         // shape:"circle",
-    //         width: "300",
-    //         background_color : 'black'
-    //       });
+    useEffect(() => {
+        google.accounts.id.initialize({
+            client_id: import.meta.env.VITE_CLIENT_ID,
+            callback:handleSignInWithGoogle
+        })
+        google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+            theme: "outline",
+            size: "large",
+            // text: "signin_with",
+            // shape:"circle",
+            width: "300",
+            background_color : 'black'
+          });
 
-    // }, [])
+    }, [])
 
 
     const validateInputs = () => {

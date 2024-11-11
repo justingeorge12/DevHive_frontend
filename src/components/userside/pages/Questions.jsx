@@ -221,8 +221,8 @@ function Questions() {
                         <div className="pl-4 py-1 border border-slate-900  bg-gradient-to-tr from-slate-900 via-black-050 to-black-050 ">
                             <div className="flex justify-between">
                                 <div className="flex gap-2 items-center">
-                                    <img src={question.user.profile || noProfile } alt="profile" className="h-12 w-12 rounded" />
-                                    <p className="font-semibold">{question.user.username} </p>
+                                    <img onClick={() => navigate(`/${question.user.username}`)} src={question.user.profile || noProfile } alt="profile" className="h-12 w-12 rounded cursor-pointer" />
+                                    <p onClick={() => navigate(`/${question.user.username}`)} className="font-semibold cursor-pointer">{question.user.username} </p>
                                 </div>
                                 <div className="mr-2">
                                     <div className="flex items-center">
