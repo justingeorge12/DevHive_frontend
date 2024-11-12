@@ -104,7 +104,7 @@ function EditProfile({onClose, user, fetchProfile}) {
 
 
                 
-                <div ref={scrollRef} className='overflow-y-auto h-[350px] mt-4'>
+                <div ref={scrollRef} className='overflow-y-auto h-[350px] mt-4 custom-scrollbar'>
                     <form onSubmit={handleSubmit}>
                         <div className='flex justify-center mt-4'>
                             <div className=' p-2  rounded-3xl'>
