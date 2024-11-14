@@ -21,7 +21,7 @@ function ListUsers() {
                 setLoading(true)
                 const res = await api.get('listusers')
 
-                console.log(res)
+                console.log(res.data)
                 if (res.status === 200) {
                     setUsers(res.data)
                 }

@@ -1,10 +1,48 @@
+import { useEffect, useState } from 'react'
 import pic from '../../../../assets/images/deBot.webp'
-import profile from '../../../../assets/images/oreo.png'
 import Chatarea from './Chatarea'
-// import profileImg from '../../../assets/images/prpic.jpeg'
-
+import api from '../../../../services/api'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
 function ChatPage() {
+
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    const {receiver_id} = useParams()
+
+    const [loading, setLoading] = useState(false)
+    const [chatusers, setChatUsers] = useState([])
+    const [receiver, setReceiver] = useState(null)
+
+
+    const fetchChatUsers = async () => {
+        try{
+            setLoading(true)
+            const res = await api.get('chatuserslist')
+
+            if (res.status === 200) {
+                setChatUsers(res.data)
+                console.log(res.data)
+            }
+
+        }
+        catch (err) {
+            console.log(err)
+        }
+        finally{
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchChatUsers()
+    }, [])
+
+    const handleOpenChat = (user_id) => {
+        // setReceiver(user_id)
+        navigate(`/chatpage/${user_id}`)
+    }
 
     return(
         <div>
@@ -12,8 +50,8 @@ function ChatPage() {
                 <div className="w-96 border  border-slate-800 flex h-screen bg-gradient-to-br from-black-050 from-20% via-slate-900 via-30% to-black-050 to-75%">
                     <div className="flex gap-2 w-full">
                         <div className="border border-slate-700 px-2">
-                            <div>
-                                <span>DH</span>
+                            <div className='mt-4'>
+                                <span onClick={() => navigate('/')} className='cursor-pointer text-zinc-400'>DH</span>
                             </div>
                         </div>
                         <div className="w-full">
@@ -27,58 +65,34 @@ function ChatPage() {
                                     </div>
                                 </div>
                                 <div className="mt-6 h-[calc(100vh-8rem)] overflow-y-auto scroll-smooth custom-scrollbar">
-                                    <div className="flex items-center gap-4 py-2 rounded-md hover:bg-slate-900">
-                                        <img src={profile} alt="" className="h-10 w-10 rounded-md ml-1" />
-                                        <h1>muthappn</h1>
-                                    </div>
-                                    <div className="flex items-center py-2 gap-4 rounded-md hover:bg-gray-950">
-                                        <img src={pic} alt="" className="h-10 w-10 ml-1 rounded-md" />
-                                        <h1>uniytten</h1>
-                                    </div>
-                                    <div className="flex items-center py-2 gap-4 rounded-md hover:bg-gray-950">
-                                        <img src={pic} alt="" className="h-10 w-10 ml-1 rounded-md" />
-                                        <h1>muthappn</h1>
-                                    </div>
-                                    <div className="flex items-center gap-4 py-2 rounded-md hover:bg-slate-900">
-                                        <img src={profile} alt="" className="h-10 w-10 rounded-md ml-1" />
-                                        <h1>muthappn</h1>
-                                    </div>
-                                    <div className="flex items-center py-2 gap-4 rounded-md hover:bg-gray-950">
-                                        <img src={pic} alt="" className="h-10 w-10 ml-1 rounded-md" />
-                                        <h1>uniytten</h1>
-                                    </div>
-                                    <div className="flex items-center py-2 gap-4 rounded-md hover:bg-gray-950">
-                                        <img src={pic} alt="" className="h-10 w-10 ml-1 rounded-md" />
-                                        <h1>muthappn</h1>
-                                    </div>
-                                    <div className="flex items-center gap-4 py-2 rounded-md hover:bg-slate-900">
-                                        <img src={profile} alt="" className="h-10 w-10 rounded-md ml-1" />
-                                        <h1>muthappn</h1>
-                                    </div>
-                                    <div className="flex items-center py-2 gap-4 rounded-md hover:bg-gray-950">
-                                        <img src={pic} alt="" className="h-10 w-10 ml-1 rounded-md" />
-                                        <h1>uniytten</h1>
-                                    </div>
-                                    <div className="flex items-center py-2 gap-4 rounded-md hover:bg-gray-950">
-                                        <img src={pic} alt="" className="h-10 w-10 ml-1 rounded-md" />
-                                        <h1>muthappn</h1>
-                                    </div>
+                                    
+                                    {chatusers.map((users, ndx) => (
+                                        <div key={ndx} onClick={() => handleOpenChat(users.id)} className="flex items-center gap-4 py-2 rounded-md hover:bg-slate-900">
+                                            <img  src={users.profile} alt="" className="h-10 w-10 rounded-md ml-1" />
+                                            <h1>{users.username}</h1>
+                                        </div>
+                                    ))}
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>    
                 </div>
                 
-                {/* <div className='flex flex-col gap-3 w-full justify-center items-center'>
-                    <div>
-                        <h1 className='text-4xl text-slate-600 font-bold'>DevHive</h1>
-                    </div>
-                    <div className='w-80 text-center text-slate-600'>
-                        keep engage with your dev buddies, keep chat without any break, have a good communication and get new knowledge from our community
-                    </div>
-                </div> */}
+                {receiver_id ? 
 
-                <Chatarea />
+                    <Chatarea /> 
+
+                :
+                    <div className='flex flex-col gap-3 w-full justify-center items-center'>
+                        <div>
+                            <h1 className='text-4xl text-slate-600 font-bold'>DevHive</h1>
+                        </div>
+                        <div className='w-80 text-center text-slate-600'>
+                            keep engage with your dev buddies, keep chat without any break, have a good communication and get new knowledge from our community
+                        </div>
+                    </div>
+                }
 
 
             </div>

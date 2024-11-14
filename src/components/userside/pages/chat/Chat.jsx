@@ -15,8 +15,6 @@ function Chat() {
     const [message, setMessage] = useState('');
     const [socket, setSocket] = useState(null);
 
-    const [chatHistory, setChatHistory] = useState([])
-
     const current_user = localStorage.getItem('user_id')
     
 
@@ -78,8 +76,10 @@ function Chat() {
     const sendMessage = (e) => {
         e.preventDefault();
         if (message && socket) {
-            console.log(current_user, '------------------------')
-            socket.send(JSON.stringify({  'user':1, message:message  }));
+            console.log(current_user, '------------------------', '')
+            console.log('mssssg', {message:message})
+            console.log('jsooooon', JSON.stringify({  'user':1, message:message , 'lll':'weoiru' }))
+            socket.send(JSON.stringify({  'user':1, message:message , 'lll':'weoiru' }));
             setMessage('');
         }
 

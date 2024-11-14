@@ -149,7 +149,7 @@ function OtherUserProfile() {
             <Nav />
             <div className="m-24">
                 <div className='border relative border-gray-900 bg-gradient-to-br from-black-050  via-gray-900 to-black-050 rounded-xl'>
-                    <div onClick={() => navigate(`/message/${otherUserDetails.id}`)} className='absolute right-4 top-4 font-semibold text-slate-300 cursor-pointer'>
+                    <div onClick={() => navigate(`/chatpage/${otherUserDetails.id}`)} className='absolute right-4 top-4 font-semibold text-slate-300 cursor-pointer'>
                         message
                     </div>
 

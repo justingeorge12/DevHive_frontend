@@ -55,8 +55,10 @@ function UsersRoutes() {
             <Route path="/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
             <Route path="/userquestion" element={<ProtectedRoute> <ProfQuesDetails /> </ProtectedRoute>} />
             <Route path="/:username" element={<ProtectedRoute> <OtherUserProfile /> </ProtectedRoute>} />
-            <Route path="/message/:user_id" element={<ProtectedRoute><Chat /> </ProtectedRoute> } />
+            {/* <Route path="/message/:user_id" element={<ProtectedRoute><Chat /> </ProtectedRoute> } /> */}
             <Route path="/chatpage" element={<ProtectedRoute> <ChatPage /> </ProtectedRoute>} />
+            <Route path="/chatpage/:receiver_id" element={<ProtectedRoute> <ChatPage /> </ProtectedRoute>} />
+
             
         </Routes>
     )
