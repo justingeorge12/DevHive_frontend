@@ -1,17 +1,13 @@
-import { useParams } from "react-router-dom"
-import profile from '../../../../assets/images/noProfile.jpg'
-import pic from '../../../../assets/images/prpic.jpeg'
+import pic from '../../../../assets/images/deBot.webp'
+import profile from '../../../../assets/images/oreo.png'
+import Chatarea from './Chatarea'
+// import profileImg from '../../../assets/images/prpic.jpeg'
 
-function Chat() {
 
-    const { username } = useParams()
-
-    console.log(username, 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuu')
-
+function ChatPage() {
 
     return(
         <div>
-            
             <div className="flex">
                 <div className="w-96 border  border-slate-800 flex h-screen bg-gradient-to-br from-black-050 from-20% via-slate-900 via-30% to-black-050 to-75%">
                     <div className="flex gap-2 w-full">
@@ -72,48 +68,22 @@ function Chat() {
                         </div>
                     </div>    
                 </div>
-                <div className="w-full flex flex-col justify-between h-screen">
-                    <div className="border-b w-full border-slate-800">
-                        <div className="m-2 flex items-center gap-4">
-                            <img src={pic} alt="" className="h-10 w-10 rounded-md" />
-                            <h1>
-                                {username}
-                            </h1>
-                        </div>
+                
+                {/* <div className='flex flex-col gap-3 w-full justify-center items-center'>
+                    <div>
+                        <h1 className='text-4xl text-slate-600 font-bold'>DevHive</h1>
                     </div>
-
-                    <div className="flex-grow m-4 overflow-y-auto custom-scrollbar">
-                        {/* bg picture */}
-                        <div className="p-1">
-                            <div className="my-3">
-                                <span className="bg-blue-950 px-2 py-1 rounded-md"> hey brother </span>
-                            </div>
-                            <div className="my-3">
-                                <span className="bg-slate-700 px-2 py-1 rounded-md"> hey </span>
-                            </div>
-
-                        <p>sflj</p><p>asflj</p><p>slfdjs</p><p>sflj</p><p>asflj</p><p>slfdjs</p><p>sflj</p><p>sflj</p><p>asflj</p><p>slfdjs</p><p>sflj</p><p>asflj</p><p>slfdjs</p><p>sflj</p>
-                        <p>sflj</p><p>asflj</p><p>slfdjs</p><p>sflj</p><p>asflj</p><p>slfdjs</p><p>sflj</p><p>sflj</p><p>asflj</p><p>slfdjs</p><p>sflj</p><p>asflj</p><p>slfdjs</p><p>sflj</p>
-
-                        </div>
-                        
+                    <div className='w-80 text-center text-slate-600'>
+                        keep engage with your dev buddies, keep chat without any break, have a good communication and get new knowledge from our community
                     </div>
+                </div> */}
+
+                <Chatarea />
 
 
-                    <div className="m-2">
-                        <form>
-                            <div className="flex gap-3 border border-slate-800 py-2 shadow-sm shadow-slate-800 bg-slate-950 rounded-md px-2">
-                                <p>😉</p>
-                                <p >🔗 </p>
-                                <input type="text" className="w-full bg-slate-950 focus:outline-none " placeholder="type your message here.." />
-                                <button type="submit">send</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     )
 }
 
-export default Chat
+export default ChatPage 

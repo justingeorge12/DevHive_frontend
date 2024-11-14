@@ -38,8 +38,7 @@ function UserLogin() {
             console.log(server_res.data)
             if (server_res.status === 200) {
                 localStorage.setItem(ACCESS_TOKEN, server_res.data.access_token)
-                localStorage.setItem(REFRESH_TOKEN, server_res.data.refresh_token
-                )
+                localStorage.setItem(REFRESH_TOKEN, server_res.data.refresh_token)
                 navigate('/')
             }
         }
@@ -109,6 +108,8 @@ function UserLogin() {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access)
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
                 localStorage.setItem('role', res.data.role)
+                localStorage.setItem('user_id', res.data.user_id)
+                console.log(res)
             
                 navigate('/')
             }

@@ -35,6 +35,9 @@ function OtherUserProfile() {
             setLoading(true)
             const res = await api.get(`otheruserprofile/${username}`)
             if (res.status === 200) {
+                if (res.data.detail && res.data.detail === "Same user profile") {
+                    navigate('/profile')
+                }
                 
                 setOtherUserDetails(res.data)
                 console.log(res, '-------------------')
@@ -146,7 +149,7 @@ function OtherUserProfile() {
             <Nav />
             <div className="m-24">
                 <div className='border relative border-gray-900 bg-gradient-to-br from-black-050  via-gray-900 to-black-050 rounded-xl'>
-                    <div onClick={() => navigate(`/message/${otherUserDetails.username}`)} className='absolute right-4 top-4 font-semibold text-slate-300 cursor-pointer'>
+                    <div onClick={() => navigate(`/message/${otherUserDetails.id}`)} className='absolute right-4 top-4 font-semibold text-slate-300 cursor-pointer'>
                         message
                     </div>
 

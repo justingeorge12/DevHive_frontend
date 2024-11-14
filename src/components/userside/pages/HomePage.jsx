@@ -19,10 +19,22 @@ function HomePage() {
                 <div className="mx-6 mt-32">
 
                     <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] border-yellow-200 border-4 shadow-md  shadow-yellow-300 rounded-3xl">
-                        <div className="relative mt-4">
-                            <button onClick={() => navigate('/users')} className="right-4 absolute text-gray-400 font-bold px-4 py-2 shadow-sm shadow-yellow-50 rounded-lg"> Users</button>
+                        <div className="relative">
+                            <button onClick={() => navigate('/questions')} className="right-4 top-4 absolute text-gray-400 font-bold px-4 py-2 shadow-sm shadow-yellow-50 rounded-lg">  Questions</button>
                         </div>
-                        <div className="m-10">
+                        <div className="h-full flex flex-col justify-center items-center">
+                            <div className="m-4 mx-8">
+                                <h1 className="text-3xl font-semibold font-mono text-neutral-500 text-center">From questions to breakthroughs, every coder’s journey is welcome here</h1>
+                            </div>
+                            <div className="mx-8">
+                                <h1 className="text-3xl font-semibold text-slate-500 justify-center flex">" Have a&nbsp; <span className="text-3xl font-bold bg-slate-800 text-transparent bg-gradient-to-br from-purple-800 via-cyan-700 to-purple-800 bg-clip-text "> Question <span className="text-violet-700"> ? </span> </span>  </h1>
+                                <h1 className="text-3xl font-semibold text-slate-500 mt-1"> Our Community Has the <span className="font-bold bg-slate-800 text-transparent bg-gradient-to-b from-slate-400 from-50% to-blue-700 bg-clip-text"> Answer</span> "</h1>
+                            </div>
+                        </div>
+                        
+
+
+                        {/* <div className="m-10">
                             <div className="text-3xl border border-green-100 p-4 rounded-md mr-16">
                                 find your buddies from here 
                             </div>
@@ -32,12 +44,12 @@ function HomePage() {
                             <div className="text-xl mt-6 ml-20 border border-green-100 p-4 rounded-md mr-16">
                                 Interact with them 
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     
                     <div className="mt-20 h-[300px] md:h-[400px] w-[90%] md:w-[800px] md:ml-auto border-4 bg-black rounded-3xl border-green-400 ">
                         <div className="relative mt-4">
-                            <button onClick={() => navigate('/questions')} className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-green-200 rounded-lg">Questions</button>
+                            <button onClick={() => navigate('/users')} className="absolute text-gray-400 right-4 font-bold px-4 py-2 shadow-sm shadow-green-200 rounded-lg"> Users</button>
                         </div>
                         <div className="m-10">
                             <div className="text-3xl border border-green-100 p-4 rounded-md mr-24">

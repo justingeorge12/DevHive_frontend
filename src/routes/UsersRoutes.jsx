@@ -18,7 +18,8 @@ import Answer from "../components/userside/pages/QA/Answer";
 import Profile from "../components/userside/pages/Profile";
 import ProfQuesDetails from "../components/userside/pages/ProfileCompo/details/ProfQuesDetails";
 import OtherUserProfile from "../components/userside/pages/Usermanage/OtherUserProfile";
-import Chat from "../components/userside/pages/Usermanage/Chat";
+import Chat from "../components/userside/pages/chat/Chat";
+import ChatPage from "../components/userside/pages/chat/ChatPage";
 
 
 function Logout() {
@@ -54,7 +55,8 @@ function UsersRoutes() {
             <Route path="/profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
             <Route path="/userquestion" element={<ProtectedRoute> <ProfQuesDetails /> </ProtectedRoute>} />
             <Route path="/:username" element={<ProtectedRoute> <OtherUserProfile /> </ProtectedRoute>} />
-            <Route path="/message/:username" element={<ProtectedRoute><Chat /> </ProtectedRoute> } />
+            <Route path="/message/:user_id" element={<ProtectedRoute><Chat /> </ProtectedRoute> } />
+            <Route path="/chatpage" element={<ProtectedRoute> <ChatPage /> </ProtectedRoute>} />
             
         </Routes>
     )

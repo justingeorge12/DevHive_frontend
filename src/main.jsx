@@ -8,7 +8,7 @@ import { NextUIProvider } from '@nextui-org/react';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <NextUIProvider>
 
     <Provider store={store}>
@@ -16,5 +16,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </Provider>
     </NextUIProvider>
 
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

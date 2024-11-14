@@ -10,6 +10,7 @@ import { MdLocationOn } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 import ChangePassword from './ProfileCompo/ChangePassword'
 import SavedCompo from './ProfileCompo/SavedCompo'
+import FollowModal from './Usermanage/FollowModal'
 
 
 function Profile() {
@@ -24,6 +25,10 @@ function Profile() {
     const [openSetting, setOpenSetting] = useState(false)
     const [changePass, setChangePass] = useState(false)
     const [followCount, setFollowCount] = useState([])
+
+    const [followModalOpen, setFollowModalOpen] = useState(false);
+    const [followType, setFollowType] = useState('');                                          // 'Followers' or 'Following'
+    const [followData, setFollowData] = useState([]);
 
 
     
@@ -84,6 +89,19 @@ function Profile() {
     }
 
 
+    const openFollowModal = async (type, user_id) => {
+        setFollowType(type);
+        setFollowModalOpen(true);
+
+        try{
+            const res = await api.get(`${type.toLowerCase()}/${user_id}`)
+            setFollowData(res.data)
+        }
+        catch(err) {
+            console.log(err)
+        }
+    }
+
 
     console.log(user)
 
@@ -120,10 +138,16 @@ function Profile() {
                             <h1 className='text-3xl'>{user.username}</h1>
                             
                             <div className='mt-4 flex gap-4'>
-                                <p className='text-red-100'> {followCount.follower_count} Followers</p>
-                                <p className='text-red-100'>{followCount.following_count} Following</p>
+                                <p onClick={() => openFollowModal('Followers', user.id)} className='text-red-100'> {followCount.follower_count} Followers</p>
+                                <p onClick={() => openFollowModal('Following', user.id)} className='text-red-100'>{followCount.following_count} Following</p>
                                 
                             </div>
+
+                            {
+                                followModalOpen && 
+                                <FollowModal isOpen={followModalOpen} onClose={() => setFollowModalOpen(false)} title={followType} followData={followData}/>
+                            }
+                            
                             <div className='text-slate-300'>
                                 {user.first_name && <p className='mt-1'><span className='text-slate-600'>name:</span> {user.first_name ? `${user.first_name} `: ''} </p>}
                                 {user.skill && <p className='mt-1'><span className='text-slate-600'>skill:</span> {user.skill ? `${user.skill} `: ''} </p>}

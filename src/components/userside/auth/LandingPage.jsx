@@ -26,7 +26,7 @@ function LandingPage() {
                     
                     <div className="h-[300px] md:h-[400px] w-[90%] md:w-[800px] bg-black border-8 border-indigo-500 rounded-3xl"> 
                         <div className="flex flex-col justify-center items-center h-full mx-4 md:mx-6">
-                            <p className="text-xl md:text-4xl text-slate-200">This is a Platform for Developers <span className="text-orange-500"> to help, </span><span className="text-teal-500"> to contribute,</span> <span className="text-rose-500"> to solve,</span> <span className="text-yellow-300"> to build</span> all together</p>
+                            <p className="text-xl md:text-4xl text-slate-200 text-center">This is a Platform for Developers <span className="text-orange-500"> to help, </span><span className="text-teal-500"> to contribute,</span> <span className="text-rose-500"> to solve,</span> <span className="text-yellow-300"> to build</span> all together</p>
                         </div>
                     </div>
 
