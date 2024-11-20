@@ -2,7 +2,7 @@ import pic from '../../../../assets/images/deBot.webp'
 import { useParams } from "react-router-dom"
 import { useState, useEffect, useRef } from "react";
 import api from '../../../../services/api';
-
+import EmojiPicker from 'emoji-picker-react';
 
 
 function Chatarea() {
@@ -15,21 +15,19 @@ function Chatarea() {
     const [message, setMessage] = useState('');
     const [socket, setSocket] = useState(null);
     const [receiverDetail, setReceiverDetail] = useState(null)
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
-    const current_user = localStorage.getItem('user_id')
+    const current_user = parseInt(localStorage.getItem('user_id'),10)
 
     useEffect(() => {
         const token = localStorage.getItem('access'); 
-        const socket = new WebSocket(`ws://localhost:8000/ws/chat/${receiver_id}/?token=${token}`);
+        const socket = new WebSocket(`ws://localhost:8001/ws/chat/${receiver_id}/?token=${token}`);
         setSocket(socket);
     
         socket.onmessage = (e) => {
-            console.log(e, 'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee')
-            const data = JSON.parse(e.data);
-            console.log(data, '----------------------------------nnnn-----------------------------------')
-            setMessages((prevMessages) => [...prevMessages, {message : data.message, sender_id : data.user}]);
-            console.log('oooooooooooooooooooonmssge','current L ',current_user,  {message : data.message, sender_id : data.user})
 
+            const data = JSON.parse(e.data);
+            setMessages((prevMessages) => [...prevMessages, {message : data.message, sender_id : data.sender_id}]);
         };
 
         socket.onerror = (e) => {
@@ -80,19 +78,20 @@ function Chatarea() {
 
 
     
-    const sendMessage = (e) => {
+    const sendMessage = (e) => { 
         e.preventDefault();
         if (message && socket) {
-            console.log(current_user, '------------------------', '')
-            console.log('mssssg', {message:message})
-            console.log('jsooooon', JSON.stringify({  'user':1, message:message , 'lll':'weoiru' }))
-            socket.send(JSON.stringify({  'user':1, message:message , 'lll':'weoiru' }));
+            socket.send(JSON.stringify({ message:message, sender_id:current_user}));
             setMessage('');
+            setShowEmojiPicker(false)
         }
 
     };
 
 
+    const onEmojiClick = (emojiData) => {
+        setMessage(message + emojiData.emoji); 
+      };
 
 
 
@@ -120,32 +119,37 @@ function Chatarea() {
                                     
                                     {data.sender_id == current_user ?  
                                         <div className="my-3 mr-3 flex justify-end">
-                                        <span className=" bg-blue-950 px-2 py-1 rounded-md"> {data.message} </span>
-                                    </div>
-                                        :
-                                        
+                                            <span className=" bg-blue-950 px-2 py-1 rounded-md"> {data.message} </span>
+                                        </div>
+                                    :
                                         <div  className="my-3">
-                                        <span className="bg-slate-700 px-2 py-1 rounded-md"> {data.message} </span>
-                                    </div>
-                                        }
+                                            <span className="bg-slate-700 px-2 py-1 rounded-md"> {data.message} </span>
+                                        </div>
+                                    }
                                 </div>
                             ))}
                             
-                        <div ref={messagesEndRef} />
+                            <div ref={messagesEndRef} />
                         </div>
-                        
                     </div>
 
+                    {showEmojiPicker && (
+                        <div className="absolute mb-4">
+                            <EmojiPicker onEmojiClick={onEmojiClick} /> 
+                        </div>
+                    )}
 
                     <div className="m-2">
-                        {/* <form> */}
+                    
+                        <form onSubmit={sendMessage}>
                             <div className="flex gap-3 border border-slate-800 py-2 shadow-sm shadow-slate-800 bg-slate-950 rounded-md px-2">
-                                <p>😉</p>
+                                <button type="button" onClick={() => setShowEmojiPicker(!showEmojiPicker)} className="text-xl"> 😊 </button>
                                 <p >🔗 </p>
-                                <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} className="w-full bg-slate-950 focus:outline-none " placeholder="type your message here.." />
-                                <button onClick={sendMessage}>send</button>
+                                <input type="text" onClick={() => setShowEmojiPicker(false)} value={message} onChange={(e) => setMessage(e.target.value)} className="w-full bg-slate-950 focus:outline-none " placeholder="type your message here.." />
+                                <button type='submit'>send</button>
                             </div>
-                        {/* </form> */}
+                        </form>
+                        
                     </div>
                 </div>
     )

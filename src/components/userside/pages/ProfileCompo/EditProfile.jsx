@@ -99,7 +99,8 @@ function EditProfile({onClose, user, fetchProfile}) {
                             <button onClick={() => setChangeImg(false)} className="w-full py-2 text-gray-600 font-semibold hover:bg-gray-900 rounded"> Cancel </button>
                         </div>
                     </div>
-                </div>}
+                </div>
+                }
 
 
 

@@ -90,9 +90,9 @@ function QuestionManage() {
     return(
         <div>
 
-            <Nav />
+            {/* <Nav /> */}
             <Sidebar />
-            <div className="lg:ml-[200px]">
+            <div className="sm:ml-[200px]">
                 <h1 className="text-2xl font-bold mt-6 flex justify-center">Questions/Answer Manage {question_id} </h1>
 
                 <div className="m-10 border border-slate-800 ">

@@ -183,8 +183,8 @@ function OtherUserProfile() {
                             </div>
                             
                             <div className='mt-4 flex gap-4'>
-                                <p onClick={() => openFollowModal('Followers', otherUserDetails.id)} className='text-red-100'> {followCount.follower_count} Followers</p>
-                                <p onClick={() => openFollowModal('Following', otherUserDetails.id)} className='text-red-100'> {followCount.following_count} Following</p>
+                                <p onClick={() => openFollowModal('Followers', otherUserDetails.id)} className='text-red-100 cursor-pointer'> {followCount.follower_count} Followers</p>
+                                <p onClick={() => openFollowModal('Following', otherUserDetails.id)} className='text-red-100 cursor-pointer'> {followCount.following_count} Following</p>
                                 
                             </div>
                             {

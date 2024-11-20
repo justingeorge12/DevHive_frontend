@@ -67,7 +67,7 @@ function ChatPage() {
                                 <div className="mt-6 h-[calc(100vh-8rem)] overflow-y-auto scroll-smooth custom-scrollbar">
                                     
                                     {chatusers.map((users, ndx) => (
-                                        <div key={ndx} onClick={() => handleOpenChat(users.id)} className="flex items-center gap-4 py-2 rounded-md hover:bg-slate-900">
+                                        <div key={ndx} onClick={() => handleOpenChat(users.id)} className="flex items-center gap-4 py-2 rounded-md hover:bg-slate-900 cursor-pointer">
                                             <img  src={users.profile} alt="" className="h-10 w-10 rounded-md ml-1" />
                                             <h1>{users.username}</h1>
                                         </div>

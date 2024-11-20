@@ -30,8 +30,13 @@ function Nav() {
     return(
         <div className="h-14 bg-black shadow-sm shadow-lime-400 ">
                 <div className="mx-10 flex justify-between items-center h-full ">
-                    <p onClick={showHome} className="text-2xl font-bold text-lime-100 cursor-default">DevHive</p>
-                    <p onClick={handleLogout} className="cursor-pointer">Logout</p>
+                    <div>
+                        <p onClick={showHome} className="text-2xl font-bold text-lime-100 cursor-default">DevHive</p>
+                    </div>
+                    <div className="flex gap-6">
+                        <p onClick={() => navigate('/admin/users')} className="cursor-pointer font-bold">Activities</p>
+                        <p onClick={handleLogout} className="cursor-pointer font-bold">Logout</p>
+                    </div>
                 </div>
             </div>
     )

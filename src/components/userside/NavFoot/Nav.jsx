@@ -41,6 +41,7 @@ function Nav() {
 
         {/* Menu Items */}
         <div className={`md:flex space-x-8 mr-8 font-bold hidden ${isOpen ? "block" : "hidden"} md:space-x-8`}>
+          <p onClick={() => navigate('/store')} className="cursor-pointer">Store</p>
         <p onClick={() => navigate('/chatpage')} className="text-white cursor-pointer">Chat</p>
           <p onClick={() => navigate('/users')} className="text-white cursor-pointer">Users</p>
           <p onClick={() => navigate('/tags')} className="text-white cursor-pointer">Tags</p>

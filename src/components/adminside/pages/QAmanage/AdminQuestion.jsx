@@ -29,9 +29,9 @@ function AdminQuestion() {
     return(
         <div>
 
-            <Nav />
+            {/* <Nav /> */}
             <Sidebar />
-            <div className="lg:ml-[200px]">
+            <div className="sm:ml-[200px]">
                 <h1 className="text-2xl font-bold mt-6 flex justify-center">Questions</h1>
 
                 <div className="flex justify-center mt-2">
