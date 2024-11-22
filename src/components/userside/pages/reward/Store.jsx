@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import RedeemPage from "./RedeemPage"
 import EarnCoinPage from "./EarnCoinPage"
 import { useNavigate } from "react-router-dom"
+import api from "../../../../services/api"
 
 
 
@@ -12,6 +13,7 @@ function Store() {
     const navigate = useNavigate()
     const [redeemSection, setRedeemSection] = useState(true)
     const [getCoinSection, setGetCoinSection] = useState(false)
+    const [userCoins, setUserCoins] = useState(null)
 
 
 
@@ -25,8 +27,19 @@ function Store() {
         else if (value === 'earn_coin') {
             setGetCoinSection(true)
         }
-        
     }
+
+    const fetchUserCoin = async () => {
+        const res = await api.get(`/usercoins`)
+        if (res.status == 200){
+            setUserCoins(res.data)
+        }
+
+    }
+
+    useEffect(() => {
+        fetchUserCoin()
+    }, [])
 
     return(
 
@@ -37,7 +50,7 @@ function Store() {
                     <div className="absolute right-4 top-24 sm:right-8 sm:top-16 md:right-12 md:top-24 lg:right-16 lg:top-24">
                         <div className="flex items-center space-x-2 border border-slate-600 p-2 rounded-md ">
                             <p className="font-bold font-mono text-xs sm:text-sm md:text-base">your coins: </p>
-                            <p className="font-mono text-xs sm:text-sm md:text-base">🪙1522</p>
+                            <p className="font-mono text-xs sm:text-sm md:text-base">🪙 {userCoins?.coins}</p>
                         </div>
                     </div>
     

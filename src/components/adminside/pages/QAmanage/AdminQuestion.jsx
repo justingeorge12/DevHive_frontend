@@ -4,27 +4,35 @@ import Nav from "../../layout/Nav"
 import Sidebar from "../../layout/Sidebar"
 import { useNavigate } from "react-router-dom"
 
+
 function AdminQuestion() {
 
     const [question, setQuestion] = useState([])
-    const [search, setSearch] = useState("")
+    const [search, setSearch] = useState("");
+    const [next, setNext] = useState(null);
+    const [previous, setPrevious] = useState(null);
 
 
     const navigate = useNavigate()
 
-    const fetchAllQuestion = async (searchTerm = "") => {
 
-        const res = await api.get(`listquestion?search=${searchTerm}`)
-        console.log(res, 'ressss')
-        setQuestion(res.data)
-    }
+    const fetchAllQuestion = async (url = `listquestion?search=${search}`) => {
+        try {
+            const res = await api.get(url);
+            console.log(res, "Response");
+            setQuestion(res.data.results); 
+            setNext(res.data.next); 
+            setPrevious(res.data.previous);
+        } catch (error) {
+            console.error("Error fetching questions:", error);
+        }
+    };
 
 
     useEffect(() => {
+        fetchAllQuestion();
+    }, [search]);
 
-        fetchAllQuestion(search)
-
-    }, [search])
 
     return(
         <div>
@@ -41,7 +49,17 @@ function AdminQuestion() {
                     </div>
 
                 <div className="m-10 border">
-
+                    {/* pagination  */}
+                    <div className="gap-4 flex mr-6 justify-end ">
+                            <div>
+                                {previous && 
+                                    <button onClick={() => fetchAllQuestion(previous)} className="text-3xl">«</button>}
+                            </div>
+                            <div>
+                                {next && 
+                                    <button onClick={() => fetchAllQuestion(next)} className="text-3xl">»</button>}
+                            </div>
+                        </div>
                     {question.map((quest , index) => (
                         <div key={index} className="border border-slate-700 m-6 p-4">
                             <div>

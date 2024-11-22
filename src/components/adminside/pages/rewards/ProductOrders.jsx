@@ -1,26 +1,22 @@
-import { useNavigate } from 'react-router-dom'
-import Nav from '../../NavFoot/Nav'
-import { useEffect, useState } from 'react'
-import api from '../../../../services/api'
+import { useEffect, useState } from "react"
+import api from "../../../../services/api"
+import Sidebar from "../../layout/Sidebar"
+import { useNavigate } from "react-router-dom"
 
-function OrderDetails() {
+function ProductOrders() {
 
-    const navigate = useNavigate()
-    const [orders, setOrders] = useState([])
+    const  navigate = useNavigate()
 
-    // const orders = [
-    //     {'id':'756dsf','name':'DevHive Cap', 'date':'7-12-2024', 'address':'valery po, wayanad, 670645', 'status':'placed'},
-    //     {'id':'756dsf','name':'DevHive Cap', 'date':'7-12-2024', 'address':'valery po, wayanad, 670645', 'status':'placed'},
-    //     {'id':'756dsf','name':'DevHive Cap', 'date':'7-12-2024', 'address':'valery po, wayanad, 670645', 'status':'placed'}
-    // ]
+    const [orderList, setOrderList] = useState([])
 
     const fetchOrders = async () => {
+        
         try{
-            const res = await api.get('userorders')
-            setOrders(res.data)
-            console.log(res, '---------')
+            const res = await api.get('orderlist')
+            setOrderList(res.data)
+            console.log(res)
         }
-        catch(err) {
+        catch (err) {
             console.log(err)
         }
     }
@@ -29,36 +25,36 @@ function OrderDetails() {
         fetchOrders()
     }, [])
 
+
     return(
         <div>
-            <Nav />
-            <div className='mt-24 border border-slate-900'>
+            <Sidebar />
+            <div className='sm:ml-[200px] border border-slate-900'>
                 <div className='m-10 mx-4 sm:mx-8 lg:mx-16'>
-                    <div className='flex justify-between border border-slate-700 p-3'>
-                        <h1 className='text-lg font-bold'>Your Orders</h1>
-                        <button onClick={() => navigate('/store')} className='text-blue-600 opacity-70'>Continue shopping from DevHive Store »</button>
+                    <div className="flex justify-center">
+                        <h1 className="text-3xl font-bold">Orders</h1>
                     </div>
                     <div className='border border-slate-700 mt-6 relative overflow-x-auto'>
                         <table className="w-full text-sm text-left rtl:text-right">
                             <thead className="text-sm uppercase border-b border-slate-500">
                                 <tr>
                                     <th scope="col" className="px-6 py-3">Order ID</th>
+                                    <th scope="col" className="px-6 py-3">Orderd User</th>
                                     <th scope="col" className="px-6 py-3">Product Name</th>
                                     <th scope="col" className="px-6 py-3">Product Image</th>
                                     <th scope="col" className="px-6 py-3">Order Date</th>
-                                    <th scope="col" className="px-6 py-3">Order Address</th>
                                     <th scope="col" className="px-6 py-3">Order Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {orders.length > 0 ? (
-                                    orders.map((data, index) => (
-                                        <tr key={index} className="border-b border-slate-700">
+                                {orderList.length > 0 ? (
+                                    orderList.map((data, index) => (
+                                        <tr onClick={()=> navigate(`/admin/oneorderdetail/${data.id}`)} key={index} className="border-b border-slate-700">
                                             <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap" >{data.id}</th>
+                                            <td className="px-6 py-4">{data.user.username}</td>
                                             <td className="px-6 py-4">{data.product.name}</td>
                                             <td className="px-6 py-4"> <img src={data.product.image} alt="" className="h-14" /></td>
                                             <td className="px-6 py-4">{data.order_date}</td>
-                                            <td className="px-6 py-4">{data.address.name}, {data.address.address},{data.address.number}</td>
                                             <td className="px-6 py-4">{data.status}</td>
                                         </tr>
                                     ))
@@ -81,4 +77,4 @@ function OrderDetails() {
     )
 }
 
-export default OrderDetails
+export default ProductOrders 

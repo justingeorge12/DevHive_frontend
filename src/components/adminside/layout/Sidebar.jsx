@@ -1,12 +1,33 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CommonModal from "../pages/rewards/CommonModal/CommonModal";
+import api from "../../../services/api";
 
 
 function Sidebar() {
 
-    const [isOpen, setIsOpen] = useState(false)
     const navigate = useNavigate()
+    const [isOpen, setIsOpen] = useState(false)
+    const [logoutModal, setLogoutModal] = useState(false)
+
+    const handleLogout = async () =>{
+      try{
+          const refresh = localStorage.getItem('refresh')
+
+          const res = await api.post('logout', {refresh})
+          localStorage.clear();
+          delete api.defaults.headers.common["Authorization"];
+          navigate('/admin/login')
+      }
+      catch (err) {
+          console.log(err)
+          localStorage.clear()
+          delete api.defaults.headers.common["Authorization"];
+          navigate('/admin/login')
+      }
+      
+  }
 
     return(
         <div>
@@ -27,13 +48,15 @@ function Sidebar() {
                   <li onClick={() => { navigate('/admin/tags') }} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer "> 🔖 <span className="ms-2">Tags</span></li>
                   <li onClick={() => { navigate('/admin/allquestions')}} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer"> ❓<span className="ms-1">Questions</span></li>
                   <li onClick={() => {navigate('/admin/products')}} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer "> ⇉ <span className="ms-2">Products</span></li>
-                  <li className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer"> 🛒<span className="ms-2">Orders</span></li>
-                  <li className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer"> 🔒<span className="ms-2">Logout</span></li>
+                  <li onClick={() => {navigate('/admin/productorders')}} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer"> 🛒<span className="ms-2">Orders</span></li>
+                  <li onClick={() => setLogoutModal(true)} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer"> 🔒<span className="ms-2">Logout</span></li>
 
                 </ul>
               </div>
             </div>
         </aside>
+        {logoutModal &&
+        <CommonModal onClose={() => setLogoutModal(false)} message={'Logout'} handleLogout={handleLogout}/>}
       </div>
     )
 }

@@ -3,29 +3,31 @@ import cap from '../../../../assets/images/cap.png'
 import hoodie from '../../../../assets/images/hoodie_.jpeg'
 import { useEffect, useState } from 'react'
 import api from '../../../../services/api'
+import { useNavigate } from 'react-router-dom'
 
 
 function RedeemPage() {
 
+    const navigate = useNavigate()
     const [products, setProducts] = useState([])
+    const [userCoins, setUserCoins] = useState(null)
 
 
-//     const products = [{'name':'DevHive cap', 'caption':'our caps, comes in black and white colores', 'image':cap},
-//         {'name':'DevHive Hoodie', 'caption':'Redeem our high quality hoodie', 'image':hoodie},
-//         {'name':'DevHive cap', 'caption':'our caps, comes in black and white colores', 'image':cap},
-//         {'name':'DevHive cap', 'caption':'our caps, comes in black and white colores', 'image':cap},
-//         {'name':'DevHive Hoodie', 'caption':'Redeem our high quality hoodie', 'image':hoodie},
-//         {'name':'DevHive cap', 'caption':'our caps, comes in black and white colores', 'image':cap},
-//         {'name':'DevHive cap', 'caption':'our caps, comes in black and white colores', 'image':cap},
+    const fetchUser = async () => {
+        const res = await api.get('userproduct')
+        setProducts(res.data)
+    }
 
-// ] 
+    const fetchUserCoin = async () => {
+        const res = await api.get(`/usercoins`)
+        if (res.status == 200){
+            setUserCoins(res.data)
+        }
+    }
 
     useEffect(() => {
-        const fetchUser = async () => {
-            const res = await api.get('product')
-            setProducts(res.data)
-        }
         fetchUser()
+        fetchUserCoin()
     }, [])
 
     return(
@@ -44,11 +46,11 @@ function RedeemPage() {
                                             <p className="text-sm text-gray-400"> {product.description}  </p>
                                         </div>
                                         <div className='mt-4 mx-2 '>
-                                            {product.coins <= 1000 ? 
-                                            <button className='px-2 py-1 bg-blue-900 rounded-md'>{product.coins}</button>
+                                        {product.coins <= userCoins?.coins ? 
+                                            <button onClick={() => navigate('/oneproductview', {state:{product_id:product.id}})} className='px-2 py-1 bg-blue-900 rounded-md'>{product.coins}</button>
                                         :
-                                        <button className='px-2 py-1 bg-zinc-800 cursor-not-allowed rounded-md'>{product.coins}</button>
-                                    }
+                                            <button className='px-2 py-1 bg-zinc-800 cursor-not-allowed rounded-md'>{product.coins}</button>
+                                        }
                                         </div>
                                     </div>
                                 </div>

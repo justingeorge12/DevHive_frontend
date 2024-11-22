@@ -22,6 +22,9 @@ import OtherUserProfile from "../components/userside/pages/Usermanage/OtherUserP
 import ChatPage from "../components/userside/pages/chat/ChatPage";
 import Store from "../components/userside/pages/reward/Store";
 import OrderDetails from "../components/userside/pages/reward/OrderDetails";
+import OneProductView from "../components/userside/pages/reward/productDetail/OneProductView";
+import OrderSuccess from "../components/userside/pages/reward/productDetail/OrderSuccess";
+import OrderCancel from "../components/userside/pages/reward/productDetail/OrderCancel";
 
 
 function Logout() {
@@ -61,7 +64,9 @@ function UsersRoutes() {
             <Route path="/chatpage/:receiver_id" element={<ProtectedRoute> <ChatPage /> </ProtectedRoute>} />
             <Route path="/store" element={<ProtectedRoute> <Store /> </ProtectedRoute>} />
             <Route path="/orderdetails" element={<ProtectedRoute><OrderDetails /> </ProtectedRoute>} />
-            
+            <Route path="/oneproductview" element={<ProtectedRoute><OneProductView /> </ProtectedRoute>} />
+            <Route path="/ordersuccess" element={<ProtectedRoute><OrderSuccess /> </ProtectedRoute>} />
+            <Route path="/ordercancel" element={<ProtectedRoute><OrderCancel /> </ProtectedRoute>} />
         </Routes>
     )
 }

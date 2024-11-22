@@ -11,9 +11,12 @@ import { IoSettingsOutline } from "react-icons/io5";
 import ChangePassword from './ProfileCompo/ChangePassword'
 import SavedCompo from './ProfileCompo/SavedCompo'
 import FollowModal from './Usermanage/FollowModal'
+import { useLocation } from 'react-router-dom'
 
 
 function Profile() {
+
+    const location = useLocation()
 
     const [user, setUser] = useState({})
 
@@ -30,7 +33,9 @@ function Profile() {
     const [followType, setFollowType] = useState('');                                          // 'Followers' or 'Following'
     const [followData, setFollowData] = useState([]);
 
-
+    const openQuestion = location.state?.question || ''
+    const openAnswer = location.state?.answer || ''
+    
     
     const fetchProfile = async () => {
         
@@ -47,13 +52,8 @@ function Profile() {
     const fetchFollow = async () => {
 
         try{
-
             const res = await api.get(`userfollowcount`)
-
-            console.log(res , '----------------------------------')
             setFollowCount(res.data)
-
-            
         }
         catch (err) {
             console.log(err)
@@ -61,6 +61,8 @@ function Profile() {
     }
     
     useEffect(() => {
+        openQuestion ? handleSection('quest') : ''
+        openAnswer ? handleSection('ans') : ''
         fetchFollow()
         fetchProfile() 
     },[])
