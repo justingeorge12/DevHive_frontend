@@ -1,10 +1,9 @@
 
-import { act, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import AddTags from "../modal/AddTags"
 import api from "../../../services/api"
 import Confirm from "../modal/Confirm"
 import toast from "react-hot-toast"
-import Nav from "../layout/Nav"
 import Sidebar from "../layout/Sidebar"
 
 

@@ -12,6 +12,7 @@ import ChangePassword from './ProfileCompo/ChangePassword'
 import SavedCompo from './ProfileCompo/SavedCompo'
 import FollowModal from './Usermanage/FollowModal'
 import { useLocation } from 'react-router-dom'
+import AddressModal from './ProfileCompo/modal/AddressModal'
 
 
 function Profile() {
@@ -32,6 +33,9 @@ function Profile() {
     const [followModalOpen, setFollowModalOpen] = useState(false);
     const [followType, setFollowType] = useState('');                                          // 'Followers' or 'Following'
     const [followData, setFollowData] = useState([]);
+    
+    const [address, setAdderss] = useState([])
+    const [manageAddressMOodal, setManageAddressMOodal] = useState(false)
 
     const openQuestion = location.state?.question || ''
     const openAnswer = location.state?.answer || ''
@@ -41,7 +45,6 @@ function Profile() {
         
         try{
             const res = await api.get('userprofile/')
-            console.log(res)
             setUser(res.data[0])
         }
         catch(err) {
@@ -59,15 +62,24 @@ function Profile() {
             console.log(err)
         }
     }
+
+    const fetchAddress = async () => {
+        try{
+            const res = await api.get(`useraddress`)
+            setAdderss(res.data)
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
     
     useEffect(() => {
         openQuestion ? handleSection('quest') : ''
         openAnswer ? handleSection('ans') : ''
         fetchFollow()
         fetchProfile() 
+        fetchAddress()
     },[])
-
-    console.log(user)
 
 
     const handleSection = (value) => {
@@ -75,6 +87,7 @@ function Profile() {
         setQuestionComp(false)
         setAnswerCompo(false)
         setSaveCompo(false)
+        setOpenSetting(false)
 
         if (value === 'coin'){
             setCoinCompo(true)
@@ -105,9 +118,6 @@ function Profile() {
     }
 
 
-    console.log(user)
-
-
     return(
         <div>
             <Nav />
@@ -119,16 +129,27 @@ function Profile() {
                             <button onClick={() => {setOpenSetting(!openSetting); setEditProf(false); setChangePass(false)} } className=' p-2 ml-2 rounded-md hover:bg-black-050 hover:shadow-lg hover:shadow-slate-800 '><IoSettingsOutline size={26} /></button>
                         </div>
                         {openSetting && 
-                            <div className='border text-sm font-normal pl-3 border-gray-700 rounded-md p-2 bg-black-050 mt-1' >
-                                <button onClick={() => setChangePass(!changePass)}> change password </button>
+                            <div>
+                                <div className='border text-sm font-normal pl-3 border-gray-700 rounded-md p-2 bg-black-050 mt-1' >
+                                    <button onClick={() => setChangePass(!changePass)}> change password </button>
+                                </div>
+                                {address.length > 0 &&
+                                    <div className='border text-sm font-normal pl-3 border-gray-700 rounded-md p-2 bg-black-050 mt-1' >
+                                        <button onClick={() => setManageAddressMOodal(!manageAddressMOodal)}>Manage Address</button>
+                                    </div>
+                                }
                             </div>
                         }
                     </div>
                     {changePass && 
-                    <div className=''>
-                        <ChangePassword onClose={() => setChangePass(false)} />
-                    </div>
+                        <div className=''>
+                            <ChangePassword onClose={() => setChangePass(false)} />
+                        </div>
                     }
+
+                    {manageAddressMOodal && 
+                    <AddressModal onClose={() => setManageAddressMOodal(false)} address={address} fetchAddress={fetchAddress}/>}
+
 
                     {editProf && 
                     <div> <EditProfile user={user} fetchProfile={fetchProfile} onClose={() => setEditProf(false)} /> </div> }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import pic from '../../../../assets/images/deBot.webp'
+import pic from '../../../../assets/images/noProfile.jpg'
 import Chatarea from './Chatarea'
 import api from '../../../../services/api'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -44,6 +44,8 @@ function ChatPage() {
         navigate(`/chatpage/${user_id}`)
     }
 
+    
+
     return(
         <div>
             <div className="flex">
@@ -68,7 +70,7 @@ function ChatPage() {
                                     
                                     {chatusers.map((users, ndx) => (
                                         <div key={ndx} onClick={() => handleOpenChat(users.id)} className="flex items-center gap-4 py-2 rounded-md hover:bg-slate-900 cursor-pointer">
-                                            <img  src={users.profile} alt="" className="h-10 w-10 rounded-md ml-1" />
+                                            <img  src={users.profile || pic} alt="" className="h-10 w-10 rounded-md ml-1" />
                                             <h1>{users.username}</h1>
                                         </div>
                                     ))}

@@ -58,7 +58,7 @@ function OneOrderDetail() {
             <Sidebar />
             <div className="sm:ml-[200px]">
                 <div className="mt-20 mx-8 grid gap-2 md:grid-cols-2 lg:grid-cols-3">
-                    <div className="border p-4">
+                    <div className="border border-slate-700 rounded-md p-4">
                         <div>
                             <img src={orderDetail?.product?.image} alt="" className="h-52 rounded-md"/>
                         </div>
@@ -68,7 +68,7 @@ function OneOrderDetail() {
                             <p className="text-slate-400">{orderDetail?.product?.description}</p>
                         </div>
                     </div>
-                    <div className="border">
+                    <div className="border border-slate-700 rounded-md">
                         <div className="">
                             <h1 className="flex justify-center mt-2 text-lg font-bold">Address</h1>
                             <div className="p-4 text-slate-300">
@@ -82,13 +82,13 @@ function OneOrderDetail() {
                             </div>
                         </div>
                     </div>
-                    <div className="border relative">
+                    <div className="border border-slate-700 rounded-md relative">
                         <div>
                             <h1 className="flex justify-center mt-2 text-lg font-bold">Change Status</h1>
                             <div className="p-4 ">
                                 <select value={status} onChange={(e) => setStatus(e.target.value)} className="px-4 py-2 border bg-black w-full rounded">
                                     {statusOptions.map((statusOption) => (
-                                        <option key={statusOption} value={statusOption}>
+                                        <option key={statusOption} value={statusOption} >
                                             {statusOption}
                                         </option>
                                     ))}

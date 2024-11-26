@@ -47,7 +47,7 @@ function Sidebar() {
                   <li onClick={() => { navigate('/admin/users') }} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer"> 👥 <span className="ms-2">Users</span> </li>
                   <li onClick={() => { navigate('/admin/tags') }} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer "> 🔖 <span className="ms-2">Tags</span></li>
                   <li onClick={() => { navigate('/admin/allquestions')}} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer"> ❓<span className="ms-1">Questions</span></li>
-                  <li onClick={() => {navigate('/admin/products')}} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer "> ⇉ <span className="ms-2">Products</span></li>
+                  <li onClick={() => {navigate('/admin/products')}} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer "> 🛍️ <span className="ms-2">Products</span></li>
                   <li onClick={() => {navigate('/admin/productorders')}} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer"> 🛒<span className="ms-2">Orders</span></li>
                   <li onClick={() => setLogoutModal(true)} className="flex items-center p-2 text-gray-400 rounded-lg hover:bg-zinc-800 hover:border hover:border-zinc-700 cursor-pointer"> 🔒<span className="ms-2">Logout</span></li>
 

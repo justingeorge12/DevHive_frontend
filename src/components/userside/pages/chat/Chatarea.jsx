@@ -1,4 +1,4 @@
-import pic from '../../../../assets/images/deBot.webp'
+import pic from '../../../../assets/images/noProfile.jpg'
 import { useParams } from "react-router-dom"
 import { useState, useEffect, useRef } from "react";
 import api from '../../../../services/api';
@@ -100,7 +100,7 @@ function Chatarea() {
                     <div className="border-b w-full border-slate-800">
                         <div className="m-2 flex items-center gap-4">
                             {receiverDetail ? 
-                            <img src={receiverDetail.profile} alt="" className="h-10 w-10 rounded-md" />
+                            <img src={receiverDetail.profile || pic} alt="" className="h-10 w-10 rounded-md" />
                             : 
                             <img src={pic} alt="" className="h-10 w-10 rounded-md" />
                             }

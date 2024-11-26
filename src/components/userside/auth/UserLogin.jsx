@@ -7,6 +7,7 @@ import api from '../../../services/api'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../../services/constants'
 
 import toast from 'react-hot-toast';
+import DotLoading from '../../common/DotLoading'
 
 function UserLogin() {
 
@@ -32,6 +33,7 @@ function UserLogin() {
 
     const handleSignInWithGoogle = async (response) => {
         const payload = response.credential
+        setLoading(true)
         try{
             const server_res = await api.post('google', {"access_token":payload})
             console.log(server_res,'ssssssssrvr res')
@@ -50,26 +52,29 @@ function UserLogin() {
                 }
             }
         }
+        finally{
+            setLoading(false)
+        }
     }
 
  
     // for google auth
     
-    // useEffect(() => {
-    //     google.accounts.id.initialize({
-    //         client_id: import.meta.env.VITE_CLIENT_ID,
-    //         callback:handleSignInWithGoogle
-    //     })
-    //     google.accounts.id.renderButton(document.getElementById("signInDiv"), {
-    //         theme: "outline",
-    //         size: "large",
-    //         // text: "signin_with",
-    //         // shape:"circle",
-    //         width: "300",
-    //         background_color : 'black'
-    //       });
+    useEffect(() => {
+        google.accounts.id.initialize({
+            client_id: import.meta.env.VITE_CLIENT_ID,
+            callback:handleSignInWithGoogle
+        })
+        google.accounts.id.renderButton(document.getElementById("signInDiv"), {
+            theme: "outline",
+            size: "large",
+            // text: "signin_with",
+            // shape:"circle",
+            width: "300",
+            background_color : 'black'
+          });
 
-    // }, [])
+    }, [])
 
 
     const validateInputs = () => {
@@ -101,6 +106,7 @@ function UserLogin() {
         else {
 
         
+        setLoading(true)
 
         try{
             const res = await api.post('/token', {email, password})
@@ -168,6 +174,12 @@ function UserLogin() {
         
     }
 
+    // if (loading){
+    //     return (
+    //         <Loading loading={loading} />
+    //     )
+    // }
+
 
     return(
         <div className='fixed'>
@@ -204,7 +216,7 @@ function UserLogin() {
                             <hr className='mt-4  border-dashed border-pink-600'/>
                             
                             <div className='flex justify-around mt-6 '>
-                                <FcGoogle size={24}  className='hover:cursor-pointer' />
+                                {/* <FcGoogle size={24}  className='hover:cursor-pointer' /> */}
                                 {/* <FaGithub size={24} className='hover:cursor-pointer' /> */}
                                 <div id='signInDiv'>
 
@@ -215,6 +227,8 @@ function UserLogin() {
                             </div>
                         </div>
                     </div>
+                    {loading &&
+                    <DotLoading loading={loading}/>}
                 </div>
             </div>
         </div>
