@@ -2,17 +2,23 @@
 import { useState } from "react";
 import api from "../../../services/api";
 import { useNavigate } from "react-router-dom";
+import NotificationModal from "./NotificationModal";
+import { useDispatch } from 'react-redux';
+import { logout } from "../../../redux/reducers/authSlice";
 
 function Nav() {
-  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [isOpen, setIsOpen] = useState(false);
+  const [notificationModalOpen,setNotificationModalOpen ] = useState(false)
 
   const handleLogout = async () => {
     try{
       const token = localStorage.getItem('refresh')
-
+      console.log(token)
       const res = await api.post('logout', {token})
       localStorage.clear()
+      dispatch(logout)
       delete api.defaults.headers.common["Authorization"];
       navigate('/login')
 
@@ -20,6 +26,7 @@ function Nav() {
     catch (err) {
       console.log(err)
       localStorage.clear()
+      dispatch(logout)
       delete api.defaults.headers.common["Authorization"];
       navigate('/login')
     }
@@ -42,10 +49,11 @@ function Nav() {
         {/* Menu Items */}
         <div className={`md:flex space-x-8 mr-8 font-bold hidden ${isOpen ? "block" : "hidden"} md:space-x-8`}>
           <p onClick={() => navigate('/store')} className="cursor-pointer">Store</p>
-        <p onClick={() => navigate('/chatpage')} className="text-white cursor-pointer">Chat</p>
+          <p onClick={() => navigate('/chatpage')} className="text-white cursor-pointer">Chat</p>
           <p onClick={() => navigate('/users')} className="text-white cursor-pointer">Users</p>
           <p onClick={() => navigate('/tags')} className="text-white cursor-pointer">Tags</p>
           <p onClick={() => navigate('/questions')} className="text-white cursor-pointer">Q&A</p>
+          <p onClick={() => setNotificationModalOpen(!notificationModalOpen)} className="cursor-pointer">🔔</p>
           <div onClick={() => navigate('/profile')} className="avatar text-white cursor-pointer">profile</div>
           <p className="cursor-pointer" onClick={handleLogout}>Logout</p>
         </div>
@@ -53,14 +61,20 @@ function Nav() {
 
       {/* Mobile Menu (dropdown) */}
       {isOpen && (
-        <div className="md:hidden flex flex-col space-y-2 mt-4 text-center">
-          <p onClick={() => navigate('users')} className="text-white cursor-pointer">Users</p>
-          <p onClick={() => navigate('tags')} className="text-white cursor-pointer">Tags</p>
-          <p className="text-white cursor-pointer">Q&A</p>
-          <div className="avatar text-white">O</div>
+        <div className="md:hidden flex flex-col space-y-2 mt-4 text-center bg-black">
+          <p onClick={() => navigate('/users')} className="text-white cursor-pointer">Users</p>
+          <p onClick={() => navigate('/tags')} className="text-white cursor-pointer">Tags</p>
+          <p onClick={() => navigate('/store')} className="cursor-pointer">Store</p>
+          <p onClick={() => navigate('/chatpage')} className="text-white cursor-pointer">Chat</p>
+          <p onClick={() => navigate('/questions')} className="text-white cursor-pointer">Q&A</p>
+          <p onClick={() => {setNotificationModalOpen(!notificationModalOpen); setIsOpen(false)}} className="cursor-pointer">🔔</p>
+          <div onClick={() => navigate('/profile')} className="avatar text-white cursor-pointer">profile</div>
           <div className="cursor-pointer" onClick={handleLogout}>Logout</div>
         </div>
       )}
+
+      {notificationModalOpen &&
+        <NotificationModal onClose={() => setNotificationModalOpen(false)} />}
     </div>
   );
 }

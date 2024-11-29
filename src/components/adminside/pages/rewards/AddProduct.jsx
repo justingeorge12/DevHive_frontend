@@ -2,8 +2,10 @@ import { useState } from 'react';
 import Sidebar from '../../layout/Sidebar';
 import api from '../../../../services/api';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 function AddProduct() {
+    const navigate = useNavigate()
     const [form, setForm] = useState({ name: "", description: "", coins: "", quantity: "", color: "", image: "" });
     const [errors, setErrors] = useState({});
 
@@ -115,6 +117,8 @@ function AddProduct() {
                 toast.success('Product is successfully added');
                 setForm({ name: "", description: "", coins: "", quantity: "", color: "", image: "" }); 
                 setErrors({}); 
+                navigate('/admin/products')
+                
             }
             
 

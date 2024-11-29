@@ -5,13 +5,15 @@ import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import api from '../../../services/api'
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../../../services/constants'
-
+import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast';
 import DotLoading from '../../common/DotLoading'
+import { loginSuccess } from '../../../redux/reducers/authSlice'
 
 function UserLogin() {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -39,13 +41,19 @@ function UserLogin() {
             console.log(server_res,'ssssssssrvr res')
             console.log(server_res.data)
             if (server_res.status === 200) {
-                localStorage.setItem(ACCESS_TOKEN, server_res.data.access_token)
-                localStorage.setItem(REFRESH_TOKEN, server_res.data.refresh_token)
+                // localStorage.setItem(ACCESS_TOKEN, server_res.data.access_token)
+                // localStorage.setItem(REFRESH_TOKEN, server_res.data.refresh_token)
+                // localStorage.setItem('role', 'user')
+                // localStorage.setItem('user_id', server_res.data.id)
+
+                const { access_token, refresh_token, id } = server_res.data;
+                dispatch(loginSuccess({ access_token, refresh_token, user_id: id, role:'user' }));
+
+                console.log(server_res)
                 navigate('/')
             }
         }
         catch(err) {
-            console.log(err, 'its catched errrrrrrrrrrrrrrrrrrrrrrrrrrrrrr')
             if (err.status === 401) {
                 if(err.response && err.response.data && err.response.data.detail && err.response.data.detail === "please continue your login with email") {
                     toast.error('please login manually with your email')
@@ -111,10 +119,14 @@ function UserLogin() {
         try{
             const res = await api.post('/token', {email, password})
             if (res.data.role === 'user' && res.data.is_verified) {
-                localStorage.setItem(ACCESS_TOKEN, res.data.access)
-                localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
-                localStorage.setItem('role', res.data.role)
-                localStorage.setItem('user_id', res.data.user_id)
+                // localStorage.setItem(ACCESS_TOKEN, res.data.access)
+                // localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
+                // localStorage.setItem('role', res.data.role)
+                // localStorage.setItem('user_id', res.data.user_id)
+
+                const { access, refresh, role, user_id } = res.data;
+                dispatch(loginSuccess({ access_token: access, refresh_token: refresh, user_id, role }));
+
                 console.log(res)
             
                 navigate('/')
@@ -216,8 +228,7 @@ function UserLogin() {
                             <hr className='mt-4  border-dashed border-pink-600'/>
                             
                             <div className='flex justify-around mt-6 '>
-                                {/* <FcGoogle size={24}  className='hover:cursor-pointer' /> */}
-                                {/* <FaGithub size={24} className='hover:cursor-pointer' /> */}
+                                
                                 <div id='signInDiv'>
 
                                 </div>

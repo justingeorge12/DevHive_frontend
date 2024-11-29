@@ -148,7 +148,7 @@ function Questions() {
             setSearchResult(res.data.results)
             setQuestions(res.data.results);
 
-            console.log(res.data.results,'--------')
+            console.log(res,'--------')
         }
         catch (err) {
             console.log(err)
@@ -173,8 +173,9 @@ function Questions() {
                     </div>
 
                     <form onSubmit={handleSearch}>
-                        <div className="flex justify-center">
+                        <div className="flex justify-center gap-2">
                             <input onChange={(e) => setSearch(e.target.value)} type="text" className="bg-black-050 border border-zinc-500 rounded-lg p-1 w-2/5 pl-2" placeholder="search.."/>
+                            <button type="submit" className="px-2 border rounded-md border-zinc-500"> 🔍</button>
                         </div>
                     </form>
 

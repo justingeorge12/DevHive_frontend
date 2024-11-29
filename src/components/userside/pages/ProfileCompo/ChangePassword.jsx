@@ -98,7 +98,7 @@ function ChangePassword({onClose}) {
 
     return(
         <div className="flex justify-center">
-            <div className='absolute  bg-slate-950 w-[420px] h-[400px] p-4 rounded-xl border border-slate-500 shadow-md shadow-slate-600'>
+            <div className='absolute  bg-slate-950 md:w-[420px] h-[400px] p-4 rounded-xl border border-slate-500 shadow-md shadow-slate-600'>
             <div className='absolute right-6 mt-0 '>
                     <p onClick={onClose}  className='bg-slate-800 px-2 rounded-md cursor-pointer hover:text-red-500'>✕</p>
                 </div>

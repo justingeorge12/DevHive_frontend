@@ -2,7 +2,7 @@
 import { BarLoader } from "react-spinners";
 
 
-function BarLoading() {
+function BarLoading({loading}) {
 
     return(
         <div className='fixed inset-0 flex items-center justify-center bg-opacity-70 bg-black'>
@@ -12,4 +12,4 @@ function BarLoading() {
     )
 }
 
-export default BarLoader
+export default BarLoading

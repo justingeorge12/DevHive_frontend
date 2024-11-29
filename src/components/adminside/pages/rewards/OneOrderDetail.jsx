@@ -40,6 +40,8 @@ function OneOrderDetail() {
             const res = await api.patch(`changeorderstatus/${order_id}`, {status:status})
             if (res.status === 200) {
                 toast.success('Order status updated succesfully')
+                setStatusCheck(status)
+                setStatus(status)
             }else{
                 toast.error('Error while updating')
             }
@@ -86,13 +88,17 @@ function OneOrderDetail() {
                         <div>
                             <h1 className="flex justify-center mt-2 text-lg font-bold">Change Status</h1>
                             <div className="p-4 ">
-                                <select value={status} onChange={(e) => setStatus(e.target.value)} className="px-4 py-2 border bg-black w-full rounded">
-                                    {statusOptions.map((statusOption) => (
-                                        <option key={statusOption} value={statusOption} >
-                                            {statusOption}
-                                        </option>
-                                    ))}
-                                </select>
+
+                                {status === 'Canceled' ? 'order already cancelled you cannot do any updation' 
+                                :
+                                    <select value={status} onChange={(e) => setStatus(e.target.value)} className="px-4 py-2 border bg-black w-full rounded">
+                                        {statusOptions.map((statusOption) => (
+                                            <option key={statusOption} value={statusOption} >
+                                                {statusOption}
+                                            </option>
+                                        ))}
+                                    </select>
+                                }
                             </div>
                             <div className="p-4  lg:absolute bottom-2 w-full">
                                 {statusCheck != status ? 

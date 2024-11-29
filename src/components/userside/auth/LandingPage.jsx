@@ -40,9 +40,9 @@ function LandingPage() {
                     </div>
 
                     
-                    <div className="h-[300px] md:h-[400px] w-[90%] md:w-[800px] bg-slate-50">
+                    <div className="h-[80px] md:h-[80px] w-[90%] md:w-[800px] bg-slate-500">
                         <div className="p-4 md:p-8">
-                            <h2 className="text-lg md:text-2xl">This is a Platform for Developers</h2>
+                            {/* <h2 className="text-lg md:text-2xl"></h2> */}
                         </div>
                     </div>
 
@@ -169,9 +169,9 @@ function LandingPage() {
                 </div>
 
 
-                <div className="h-10 bg-gray-600">
+                {/* <div className="h-10 bg-gray-600">
                     hey 
-                </div>
+                </div> */}
 
                 <div className="mt-10">
                     <IconCloudDemo />

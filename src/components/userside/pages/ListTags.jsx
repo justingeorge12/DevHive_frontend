@@ -6,15 +6,6 @@ import toast from "react-hot-toast"
 
 function ListTags() {
 
-    // const tags = [{name:'python', desc:'Python is a dynamically typed, multi-purpose programming language designed to be quick to learn, understand, and use, with a clean and'},
-    //     {name:'javasccript', desc:'For questions about programming in ECMAScript (JavaScript/JS) and its different dialects/implementations (except for ActionScript). Note that'},
-    //     {name:'java', desc:'Java is a high-level object-oriented programming language. Use this tag when youre having problems using or understanding the language itself.'},
-    //     {name:'php', desc:'Python is a dynamically typed, multi-purpose programming language designed to be quick to learn, understand, and use, with a clean and'},
-    //     {name:'android', desc:'For questions about programming in ECMAScript (JavaScript/JS) and its different dialects/implementations (except for ActionScript). Note that'},
-    //     {name:'html', desc:'Java is a high-level object-oriented programming language. Use this tag when youre having problems using or understanding the language itself.'},
-        
-    // ]
-
     const [tags, setTags] = useState([])
 
     useEffect(() => {

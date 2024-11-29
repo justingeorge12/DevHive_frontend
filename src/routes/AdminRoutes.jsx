@@ -23,11 +23,9 @@ function AdminRoutes() {
         <>
             <Routes>
                 <Route path="/login" element={<AdminLogProtect children = {<AdminLogin />} redirectTo={'/admin/'} />} />
-                {/* <Route path="/login" element={<AdminLogin /> } /> */}
-                <Route path="/" element={<AdminProtected> <Dashboard /> </AdminProtected> } />
                 <Route path="*" element={<NotFound />} />
 
-                {/* <Route path="/" element={<Dashboard /> } /> */}
+                <Route path="/" element={<AdminProtected> <Dashboard /> </AdminProtected> } />
                 <Route path="/tags" element={<AdminProtected> <Tags /> </AdminProtected> } />
                 <Route path="/users" element={<AdminProtected> <ListUser /> </AdminProtected>} />
                 <Route path="/allquestions" element={<AdminProtected> <AdminQuestion />  </AdminProtected> } />

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect, useRef } from "react";
 import api from '../../../../services/api';
 import EmojiPicker from 'emoji-picker-react';
+import { useSelector } from 'react-redux';
 
 
 function Chatarea() {
@@ -16,8 +17,13 @@ function Chatarea() {
     const [socket, setSocket] = useState(null);
     const [receiverDetail, setReceiverDetail] = useState(null)
     const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+    const [nextPageUrl, setNextPageUrl] = useState(null)
+    const [isAtBottom, setIsAtBottom] = useState(true);
 
-    const current_user = parseInt(localStorage.getItem('user_id'),10)
+    // const current_user = parseInt(localStorage.getItem('user_id'),10)
+    const current_user = parseInt(useSelector((state) => state.auth.user_id));
+
+    // console.log(current_user, userId, 'uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu')
 
     useEffect(() => {
         const token = localStorage.getItem('access'); 
@@ -43,20 +49,50 @@ function Chatarea() {
     }, [receiver_id]);
 
 
-    const fetchChatHistory = async () => {
-        try{
-            setLoading(true)
-            const res = await api.get(`chathistory/${receiver_id}`)
-            setMessages(res.data)
-            console.log(res.data)
+
+    const fetchChatHistory = async (url = `chathistory/${receiver_id}`) => {
+        try {
+            setLoading(true);
+            const res = await api.get(url);
+            console.log(res.data, 'rrrrrrrrrrrrrrrsssssssssssssssssss')
+            setMessages((prevMessages) => [...res.data.results, ...prevMessages]); 
+            setNextPageUrl(res.data.links.next); 
+        } 
+        catch (err) {
+            console.log(err);
         }
-        catch(err) {
-            console.log(err)
-        }
-        finally{
-            setLoading(false)
+         finally {
+            setLoading(false);
         }
     }
+
+
+    // const fetchChatHistory = async (url = `chathistory/${receiver_id}`) => {
+    //     try {
+    //         setLoading(true);
+    //         const res = await api.get(url);
+    //         const newMessages = res.data.results;
+    
+    //         const previousScrollHeight = messagesEndRef.current?.scrollHeight;
+    
+    //         setMessages((prevMessages) => [...newMessages, ...prevMessages]);
+    
+    //         setTimeout(() => {
+    //             if (messagesEndRef.current) {
+    //                 const scrollDifference = messagesEndRef.current.scrollHeight - previousScrollHeight;
+    //                 messagesEndRef.current.scrollTop = scrollDifference;
+    //             }
+    //         }, 100);
+            
+    //         setNextPageUrl(res.data.links.next);
+    //     } catch (err) {
+    //         console.error(err);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+
 
     const fetchUserDetail = async () => {
         const res = await api.get(`specificuser/${receiver_id}`)
@@ -71,6 +107,12 @@ function Chatarea() {
         fetchUserDetail()
     }, [receiver_id])
 
+
+    // useEffect(() => {
+    //     if (isAtBottom) {
+    //         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    //     }
+    // }, [messages, isAtBottom]);
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -91,7 +133,18 @@ function Chatarea() {
 
     const onEmojiClick = (emojiData) => {
         setMessage(message + emojiData.emoji); 
-      };
+    };
+
+    const handleScroll = (e) => {
+        const bottom = e.target.scrollHeight === e.target.scrollTop + e.target.clientHeight;
+        const top = e.target.scrollTop === 0; 
+
+        // setIsAtBottom(bottom);
+
+        if (top && nextPageUrl && !loading) {
+            fetchChatHistory(nextPageUrl); 
+        }
+    };
 
 
 
@@ -111,19 +164,19 @@ function Chatarea() {
                         </div>
                     </div>
                     
-                    <div className="flex-grow m-4 overflow-y-auto custom-scrollbar">
+                    <div onScroll={handleScroll} className="flex-grow m-4 overflow-y-auto custom-scrollbar">
                         {/* bg picture */}
                         <div className="p-1">
-                            {messages.map((data, indx) => (
+                            {messages?.map((data, indx) => (
                                 <div key={indx}>
                                     
                                     {data.sender_id == current_user ?  
                                         <div className="my-3 mr-3 flex justify-end">
-                                            <span className=" bg-blue-950 px-2 py-1 rounded-md"> {data.message} </span>
+                                            <span className=" bg-blue-950 px-2 py-1 rounded-md" style={{maxWidth:"300px", wordWrap:'break-word', whiteSpace:'normal'}}> {data.message} </span>
                                         </div>
                                     :
                                         <div  className="my-3">
-                                            <span className="bg-slate-700 px-2 py-1 rounded-md"> {data.message} </span>
+                                            <span className="bg-slate-700 px-2 py-1 rounded-md" style={{maxWidth:"300px", wordWrap:'break-word', whiteSpace:'normal'}}> {data.message} </span>
                                         </div>
                                     }
                                 </div>
@@ -144,7 +197,7 @@ function Chatarea() {
                         <form onSubmit={sendMessage}>
                             <div className="flex gap-3 border border-slate-800 py-2 shadow-sm shadow-slate-800 bg-slate-950 rounded-md px-2">
                                 <button type="button" onClick={() => setShowEmojiPicker(!showEmojiPicker)} className="text-xl"> 😊 </button>
-                                <p >🔗 </p>
+                                
                                 <input type="text" onClick={() => setShowEmojiPicker(false)} value={message} onChange={(e) => setMessage(e.target.value)} className="w-full bg-slate-950 focus:outline-none " placeholder="type your message here.." />
                                 <button type='submit'>send</button>
                             </div>

@@ -6,11 +6,11 @@ function UserLogProtected({children, redirectTo}) {
 
     const location = useLocation() 
     console.log(location, 'loooooooocation ')
-    const role = useSelector(state => state.auth?.role)
+    const role = useSelector((state) => state.auth?.role)
     console.log(useSelector(state => state.auth));
     
 
-    if (role === 'user') {
+    if (role) {
         return <Navigate to = {redirectTo} replace />
     }
     return children 

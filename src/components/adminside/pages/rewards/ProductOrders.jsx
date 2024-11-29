@@ -34,7 +34,7 @@ function ProductOrders() {
                     <div className="flex justify-center">
                         <h1 className="text-3xl font-bold">Orders</h1>
                     </div>
-                    <div className='border border-slate-700 mt-6 relative overflow-x-auto'>
+                    <div className='border border-slate-700 mt-6 relative overflow-x-auto custom-scrollbar'>
                         <table className="w-full text-sm text-left rtl:text-right">
                             <thead className="text-sm uppercase border-b border-slate-500">
                                 <tr>

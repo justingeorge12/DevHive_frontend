@@ -25,6 +25,7 @@ import OrderDetails from "../components/userside/pages/reward/OrderDetails";
 import OneProductView from "../components/userside/pages/reward/productDetail/OneProductView";
 import OrderSuccess from "../components/userside/pages/reward/productDetail/OrderSuccess";
 import OrderCancel from "../components/userside/pages/reward/productDetail/OrderCancel";
+import SendNotification from "../components/userside/pages/Notification/SendNotification";
 
 
 function Logout() {
@@ -67,6 +68,7 @@ function UsersRoutes() {
             <Route path="/oneproductview" element={<ProtectedRoute><OneProductView /> </ProtectedRoute>} />
             <Route path="/ordersuccess" element={<ProtectedRoute><OrderSuccess /> </ProtectedRoute>} />
             <Route path="/ordercancel" element={<ProtectedRoute><OrderCancel /> </ProtectedRoute>} />
+            <Route path="/notifications" element={<ProtectedRoute><SendNotification /> </ProtectedRoute>} />
         </Routes>
     )
 }

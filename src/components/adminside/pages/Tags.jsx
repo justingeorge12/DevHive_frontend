@@ -107,8 +107,9 @@ function Tags() {
                             ADD TAGS
                         </button>
                     </div>
+                    {/* <div className="border border-slate-700 mt-6 rounded-lg relative overflow-x-auto custom-scrollbar"> */}
 
-                    <table className="w-full bg-zinc-900 m-4 border text-sm text-left rtl:text-right ">
+                    <table className="w-full bg-zinc-900  border text-sm text-left rtl:text-right">
                         <thead className="text-sm uppercase border-b border-slate-700">
                             <tr>
                                 <th scope="col" className="px-6 py-3">Id</th>
@@ -155,6 +156,7 @@ function Tags() {
                             )}
                         </tbody>
                     </table>
+                    {/* </div> */}
 
                     {/* Pagination Buttons */}
                     <div className="flex justify-center mt-4">

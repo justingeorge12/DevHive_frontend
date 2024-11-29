@@ -64,7 +64,7 @@ function ListUser() {
 
                 <div className="my-4 mt-6 border border-slate-900">
                     <div className="mx-4 sm:mx-8 lg:mx-16">
-                        <div className="border border-slate-700 mt-6 rounded-lg relative overflow-x-auto">
+                        <div className="border border-slate-700 mt-6 rounded-lg relative overflow-x-auto custom-scrollbar">
                             <table className="w-full text-sm text-left rtl:text-right">
                                 <thead className="text-sm uppercase border-b border-slate-500">
                                     <tr>

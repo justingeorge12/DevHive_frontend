@@ -3,6 +3,7 @@ import pic from '../../../../assets/images/noProfile.jpg'
 import Chatarea from './Chatarea'
 import api from '../../../../services/api'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import SearchModal from './SearchModal'
 
 function ChatPage() {
 
@@ -14,7 +15,7 @@ function ChatPage() {
     const [loading, setLoading] = useState(false)
     const [chatusers, setChatUsers] = useState([])
     const [receiver, setReceiver] = useState(null)
-
+    const [searchModalOpen, setSearchModalOpen] = useState(false)
 
     const fetchChatUsers = async () => {
         try{
@@ -61,9 +62,10 @@ function ChatPage() {
                                 <div>
                                     <h1 className=" text-lg font-bold">Chats</h1>
                                     <div className="mt-2">
-                                        <form>
+                                        {/* <form>
                                             <input type="text" className="bg-slate-950 border border-slate-700 w-full rounded-md py-1 pl-2 shadow-sm shadow-slate-700" placeholder="search a chat"/>
-                                        </form>
+                                        </form> */}
+                                        <p onClick={() => setSearchModalOpen(true)} className="bg-slate-950 border border-slate-700 w-full rounded-md py-1 pl-2 shadow-sm shadow-slate-700">search</p>
                                     </div>
                                 </div>
                                 <div className="mt-6 h-[calc(100vh-8rem)] overflow-y-auto scroll-smooth custom-scrollbar">
@@ -98,6 +100,7 @@ function ChatPage() {
 
 
             </div>
+            {searchModalOpen && <SearchModal onClose={() => setSearchModalOpen(false)} /> }
         </div>
     )
 }

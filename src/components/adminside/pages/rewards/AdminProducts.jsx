@@ -73,7 +73,7 @@ function AdminProduct() {
                                     <button onClick={() => fetchProducts(next)} className="text-3xl">»</button>}
                             </div>
                         </div>
-                        <div className='border border-slate-700 mt-6 rounded-lg relative overflow-x-auto'>
+                        <div className='border border-slate-700 mt-6 rounded-lg relative overflow-x-auto custom-scrollbar'>
                             <table className="w-full text-sm text-left rtl:text-right">
                                 <thead className="text-sm uppercase border-b border-slate-500">
                                     <tr>

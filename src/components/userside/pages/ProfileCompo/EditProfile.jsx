@@ -78,8 +78,8 @@ function EditProfile({onClose, user, fetchProfile}) {
 
 
     return(
-        <div className=' flex justify-center'>
-            <div className='absolute  bg-slate-950 w-[620px] h-[460px] p-4 rounded-xl border border-slate-500 shadow-md shadow-slate-600'>
+        <div className='flex justify-center'>
+            <div className='absolute  bg-slate-950 md:w-[620px] h-[460px] p-4 rounded-xl border border-slate-500 shadow-md shadow-slate-600'>
                 <div className='absolute right-6 mt-0 '>
                     <p onClick={onClose} className='bg-slate-800 px-2 rounded-md cursor-pointer hover:text-red-500'>✕</p>
                 </div>
@@ -124,7 +124,7 @@ function EditProfile({onClose, user, fetchProfile}) {
                             <input  type='number' name='phone' value={formData.phone} onChange={handleChange} className='w-full p-2 bg-black-050 my-2 border border-slate-700 rounded-md' />
                             <p className='font-semibold'>Location:</p>
                             <input name="location" value={formData.location} onChange={handleChange} className='w-full p-2 bg-black-050 my-2 border border-slate-700 rounded-md' />
-                            <div>
+                            {/* <div>
                                 <p className='font-semibold'> Websites:</p>
                                 <div className='flex gap-1'>
                                     <div>
@@ -140,7 +140,7 @@ function EditProfile({onClose, user, fetchProfile}) {
                                         <input type="text" name="github" value={formData.github} onChange={handleChange} className='py-2 bg-black-050 border mt-2 border-slate-700 rounded-md' />
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <button className='w-full border border-gray-800 font-bold bg-slate-900 shadow-sm shadow-slate-800 rounded-md p-2 my-4'> Submit </button>
                         </div>
                     </form>
