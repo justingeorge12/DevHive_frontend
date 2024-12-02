@@ -13,7 +13,7 @@ function AnswerComo() {
 
             try{
                 const res = await api.get('useranswer')
-
+                console.log(res.data, '-------------------------------')
                 setUserAnsw(res.data)
                 setAnswLen(res.data.length)
             }
@@ -35,7 +35,9 @@ function AnswerComo() {
                 {userAnsw.map((answ , index) => (
                     <div key={index} className="border border-slate-700 mt-6 p-4">
                         <div className="mt-1 p-1 text-red-100" dangerouslySetInnerHTML={{ __html: answ.body }} />
-
+                        <div className="border mt-4">
+                            hey manaleee
+                        </div>
                     </div>
                 ))}
             </div>

@@ -71,83 +71,45 @@ function ProfQuesDetails() {
         <div className="m-24 border border-slate-900">
           {questionEditModal && (
             <div>
-              <EditQuestion
-                question={question}
-                onClose={() => setQuestionEditModal(false)}
-                fetchQuest={fetchQuest}
-              />
+              <EditQuestion question={question} onClose={() => setQuestionEditModal(false)} fetchQuest={fetchQuest}/>
             </div>
           )}
           <div className="m-6">
             <div className="p-4 border border-slate-700 rounded-md ">
               <div className="flex justify-between">
-                <p className="text-lg font-bold text-sky-200">
-                  {" "}
-                  {question.title}{" "}
-                </p>
-                <div className="whitespace-nowrap">
-                  {" "}
+                <p className="text-lg font-bold text-sky-200">{" "} {question.title}{" "} </p>
+                <div className="whitespace-nowrap"> {" "}
                   <p className="bg-slate-800 px-1"> {question.created} </p>{" "}
                 </div>
               </div>
 
               <div className="mt-10">
-                <p className="text-slate-400">
-                  Question Body{" "}
-                  <span className="text-slate-800"> . . . . . . . .</span>{" "}
+                <p className="text-slate-400"> Question Body{" "} <span className="text-slate-700"> . . . . . . . .</span>{" "}
                   {questBody ? (
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => setQuestBody(false)}
-                    >
-                      ▽
-                    </span>
+                    <span className="cursor-pointer" onClick={() => setQuestBody(false)} > ▽ </span>
                   ) : (
-                    <span
-                      className="cursor-pointer"
-                      onClick={() => setQuestBody(true)}
-                    >
-                      ▷
-                    </span>
+                    <span className="cursor-pointer" onClick={() => setQuestBody(true)} > ▷ </span>
                   )}{" "}
                 </p>
                 {questBody && (
                   <div className="border border-slate-800 mt-4">
                     <div className="p-4">
-                      <div
-                        className=" p-2 text-red-100"
-                        dangerouslySetInnerHTML={{ __html: question.body }}
-                      />
+                      <div className=" p-2 text-red-100" dangerouslySetInnerHTML={{ __html: question.body }} />
                     </div>
                   </div>
                 )}
               </div>
 
               <div className="flex justify-between mt-4">
-                <p className="text-slate-400">
-                  Answers: {question.answer_count}
-                </p>
+                <p className="text-slate-400"> Answers: {question.answer_count} </p>
               </div>
 
               {closeAnsModal && (
-                <ConfirmModal
-                  onClose={() => setCloseAnsModal(false)}
-                  action={"close_answer"}
-                  status={question.closed}
-                  question_id={question.id}
-                  fetchQuest={fetchQuest}
-                />
+                <ConfirmModal onClose={() => setCloseAnsModal(false)} action={"close_answer"} status={question.closed} question_id={question.id} fetchQuest={fetchQuest} />
               )}
 
               {accUnaccModal.isOpen && (
-                <ConfirmModal
-                  onClose={() =>
-                    setAccUnaccModal({
-                      isOpen: false,
-                      action: "",
-                      answer_id: null,
-                      question_id: null,
-                    })
+                <ConfirmModal onClose={() => setAccUnaccModal({ isOpen: false, action: "", answer_id: null, question_id: null,})
                   }
                   action={accUnaccModal.action}
                   question_id={accUnaccModal.question_id}
@@ -168,16 +130,10 @@ function ProfQuesDetails() {
                       </p>
                     </div>
                     <div className="flex justify-between mx-6 mt-10 mb-4">
-                      <button
-                        onClick={() => setQustionDeleteModal(false)}
-                        className="border border-slate-600 text-slate-300 px-6  py-1 rounded-md"
-                      >
+                      <button onClick={() => setQustionDeleteModal(false)} className="border border-slate-600 text-slate-300 px-6  py-1 rounded-md">
                         No
                       </button>
-                      <button
-                        onClick={deleteUserQuestionhandle}
-                        className="border border-red-500 text-red-300 px-6  py-1 rounded-md"
-                      >
+                      <button onClick={deleteUserQuestionhandle} className="border border-red-500 text-red-300 px-6  py-1 rounded-md">
                         Yes
                       </button>
                     </div>
@@ -186,52 +142,21 @@ function ProfQuesDetails() {
               )}
 
               {/* <button className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-semibold text-gray-400 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"> Close Answer </button> */}
-              <button
-                onClick={() => {
-                  setQustionDeleteModal(false);
-                  setQuestionEditModal(!questionEditModal);
-                }}
-                className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-semibold text-gray-400 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"
-              >
-                {" "}
-                Edit{" "}
+              <button onClick={() => { setQustionDeleteModal(false); setQuestionEditModal(!questionEditModal);}} className="border w-full border-slate-800 p-2 mt-4 flex justify-center font-bold text-gray-400 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%">
+                {" "} Edit{" "}
               </button>
 
               <div className="flex gap-4">
-                <button
-                  onClick={() => {
-                    setQustionDeleteModal(!qustionDeleteModal);
-                    setQuestionEditModal(false);
-                    setCloseAnsModal(false);
-                  }}
-                  className="border w-full  border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-500 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"
-                >
-                  {" "}
-                  Delete Question{" "}
+                <button onClick={() => {setQustionDeleteModal(!qustionDeleteModal); setQuestionEditModal(false); setCloseAnsModal(false);}} className="border w-full  border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-500 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%">
+                  {" "} Delete Question{" "}
                 </button>
                 {question.closed ? (
-                  <button
-                    onClick={() => {
-                      setCloseAnsModal(!closeAnsModal);
-                      setQuestionEditModal(false);
-                      setQustionDeleteModal(false);
-                    }}
-                    className="border w-full  border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-100 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"
-                  >
-                    {" "}
-                    Open Answers{" "}
+                  <button onClick={() => {setCloseAnsModal(!closeAnsModal); setQuestionEditModal(false); setQustionDeleteModal(false);}} className="border w-full  border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-100 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%" >
+                    {" "} Open Answers{" "}
                   </button>
                 ) : (
-                  <button
-                    onClick={() => {
-                      setCloseAnsModal(!closeAnsModal);
-                      setQuestionEditModal(false);
-                      setQustionDeleteModal(false);
-                    }}
-                    className="border w-full  border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-100 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%"
-                  >
-                    {" "}
-                    Close Answers{" "}
+                  <button onClick={() => {setCloseAnsModal(!closeAnsModal); setQuestionEditModal(false); setQustionDeleteModal(false); }} className="border w-full  border-slate-800 p-2 mt-4 flex justify-center font-semibold text-red-100 text-opacity-65 bg-gradient-to-br from-black-050 from-10% via-gray-950 to-black-050 to-90%">
+                    {" "} Close Answers{" "}
                   </button>
                 )}
               </div>
@@ -239,10 +164,7 @@ function ProfQuesDetails() {
 
             <div className="mt-10">
               {quesAnswers.map((answ, indx) => (
-                <div
-                  key={indx}
-                  className="p-4 border-2 border-slate-600 my-8 rounded-md flex justify-between"
-                >
+                <div key={indx} className="p-4 border-2 border-slate-600 my-8 rounded-md flex justify-between">
                   <div>
                     <p className="text-lg mb-4 border-l pl-3 bg-gradient-to-r from-slate-900 from-10% via-black-050 via-30%">
                       {indx + 1}
@@ -255,32 +177,12 @@ function ProfQuesDetails() {
                     <div>
                       {answ.is_acceptable ? (
                         answ.accepted ? (
-                          <button
-                            onClick={() =>
-                              setAccUnaccModal({
-                                isOpen: true,
-                                action: "unaccept",
-                                answer_id: answ.id,
-                                question_id: question.id,
-                              })
-                            }
-                            className=" whitespace-nowrap border border-slate-800 text-green-300 p-2 flex justify-center"
-                          >
+                          <button onClick={() => setAccUnaccModal({isOpen: true, action: "unaccept", answer_id: answ.id, question_id: question.id, })} className=" whitespace-nowrap border border-slate-800 text-green-300 p-2 flex justify-center">
                             Unaccept answer
                           </button>
                         ) : (
                           !question.accepted && (
-                            <button
-                              onClick={() =>
-                                setAccUnaccModal({
-                                  isOpen: true,
-                                  action: "accept",
-                                  answer_id: answ.id,
-                                  question_id: question.id,
-                                })
-                              }
-                              className=" whitespace-nowrap border border-slate-800 text-green-300 p-2 flex justify-center"
-                            >
+                            <button onClick={() => setAccUnaccModal({isOpen: true, action: "accept", answer_id: answ.id, question_id: question.id,})} className=" whitespace-nowrap border border-slate-800 text-green-300 p-2 flex justify-center">
                               Accept answer
                             </button>
                           )

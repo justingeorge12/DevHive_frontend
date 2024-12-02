@@ -174,7 +174,7 @@ function EditQuestion({onClose, question, fetchQuest}) {
 
                 
 
-                <div ref={scrollRef} className='overflow-y-auto h-[350px] mt-4'>
+                <div ref={scrollRef} className='overflow-y-auto h-[350px] mt-4 custom-scrollbar'>
                     <form onSubmit={handleSubmit}>
                         
                         <div className="mx-2 mt-6">

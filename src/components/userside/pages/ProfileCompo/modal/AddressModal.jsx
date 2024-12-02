@@ -28,12 +28,12 @@ function AddressModal({onClose, address, fetchAddress}) {
 
     return(
         <div className='fixed inset-0  bg-black bg-opacity-50 flex items-center justify-center z-50 p-10'>
-            <div className="relative bg-black m-10 mx-14 border border-slate-600 rounded-md p-6 scroll-auto">
+            <div className="relative bg-black m-10 mx-14 border border-slate-600 rounded-md p-6 max-h-[80vh] overflow-y-auto custom-scrollbar">
                 <h1 className="text-2xl font-bold text-center mb-6 text-slate-400">Address</h1>
                 <div className="absolute top-4 right-4 bg-slate-800 rounded-md px-2 hover:text-red-600" >
                     <button onClick={() => onClose()} > ✕ </button>
                 </div>
-                <div className="p-4 border border-slate-600 rounded-md">
+                <div className="p-4  border-slate-600 rounded-md">
                     {address.map((data, ndx) => (
                         <div key={ndx} className="p-2  flex justify-between gap-4 text-gray-500">
                             <div className="border border-slate-600 rounded-sm w-full p-2">

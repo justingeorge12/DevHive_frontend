@@ -236,7 +236,7 @@ function Profile() {
             <button onClick={() => {setChangePass(false); setOpenSetting(false); setEditProf(!editProf);}} className="border p-1 sm:p-2 border-slate-500 rounded-md hover:bg-black-050 hover:shadow-lg hover:shadow-slate-800">
                 ⨭ Edit Profile
             </button>
-            <button onClick={() => {setOpenSetting(!openSetting); setEditProf(false); setChangePass(false); }} className="p-1 sm:p-2 rounded-md hover:bg-black-050 hover:shadow-lg hover:shadow-slate-800">
+            <button onClick={() => {setOpenSetting(!openSetting); setEditProf(false); setChangePass(false); }} className="p-1 flex justify-end sm:p-2 rounded-md sm:hover:bg-black-050 sm:hover:shadow-lg sm:hover:shadow-slate-800">
                 <IoSettingsOutline size={22} className="sm:size-26" />
             </button>
         </div>

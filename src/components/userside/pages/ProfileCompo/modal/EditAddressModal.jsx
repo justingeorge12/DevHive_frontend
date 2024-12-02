@@ -132,7 +132,7 @@ function EditAddressModal({onClose, address, fetchAddress}) {
 
     return(
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="absolute bg-slate-900 border border-slate-600 shadow-md shadow-gray-700 rounded-lg px-6 py-4">
+            <div className="absolute bg-slate-900 border border-slate-600 shadow-md shadow-gray-700 rounded-lg px-6 py-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
                 <div className="justify-center flex font-bold text-lg">
                     Add Address
                 </div>
