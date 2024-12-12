@@ -22,6 +22,7 @@ function Answer() {
     const [value, setValue] = useState('')
     const [answers, setAnswers] = useState([])
     const [loading, setLoading] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const fetchQuesDetails = async () => {
         
@@ -96,19 +97,42 @@ function Answer() {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        console.log(value.length)
+        console.log(value)
+
+        if (!value.trim()) {
+            toast.error('Answer cannot be empty!');
+            return;
+        }
+
+        if (value.trim().split(/\s+/).length < 8 ){
+            toast.error( 'there should be atleast 8 words in the answer' )
+            return
+
+        }
+
         try{
+            setIsSubmitting(true);
             const res = await api.post('addlistanswer',{question:question_id, body:value})
+
             setValue('')
 
             if (res.status === 201 ) {
                 toast.success('answer is successfully addedd')
-                fetchAnswer()
+                // fetchAnswer()
+                console.log(res.data)
+                const newAnswer = res.data;
+                setAnswers((prevAnswers) => [newAnswer, ...prevAnswers]);
 
             }
         }
         catch (err) {
+            console.log(err)
             setValue('')
             toast.error('there is a isssue with submition')
+        }
+        finally{
+            setIsSubmitting(false)
         }
 
         
@@ -265,7 +289,7 @@ function Answer() {
                                     <div className="mt-4">
                                         <ReactQuill theme="snow" value={value} onChange={setValue} modules={modules} formats={formats} />
                                     </div>
-                                    <button className=" mt-6 bg-gradient-to-r from-slate-800 via-slate-950 to-slate-800 w-full py-2 rounded-md shadow-sm shadow-slate-800 font-bold  text-red-100 hover:text-orange-300 ">Post answer</button>
+                                    <button disabled={isSubmitting} className=" mt-6 bg-gradient-to-r from-slate-800 via-slate-950 to-slate-800 w-full py-2 rounded-md shadow-sm shadow-slate-800 font-bold  text-red-100 hover:text-orange-300 ">{isSubmitting ? 'Posting...' : 'Post Answer'}</button>
                                 </form>
                             </div>
                         }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import api from "../../../services/api"
 import toast from "react-hot-toast"
 
-function AddTags({onClose, tag , fetchData}) {
+function    AddTags({onClose, tag , fetchData}) {
 
     const [name, setName] = useState('')
     const [descrip, setDescrip] = useState('')

@@ -1,9 +1,12 @@
 
-function CommonConfirmModal ({onClose, message, orderProduct}) {
+function CommonConfirmModal ({onClose, message, orderProduct, handleFunction }) {
 
     const func = () => {
         if (message === 'place the order'){
             orderProduct()
+        }
+        else{
+            handleFunction()
         }
     }
 

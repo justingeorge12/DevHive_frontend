@@ -146,6 +146,10 @@ function Chatarea() {
         }
     };
 
+    const formatTime = (timestamp) => {
+        const date = new Date(timestamp);
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    };
 
 
     return (
@@ -172,11 +176,17 @@ function Chatarea() {
                                     
                                     {data.sender_id == current_user ?  
                                         <div className="my-3 mr-3 flex justify-end">
-                                            <span className=" bg-blue-950 px-2 py-1 rounded-md" style={{maxWidth:"300px", wordWrap:'break-word', whiteSpace:'normal'}}> {data.message} </span>
+                                            <div className='bg-blue-950 px-2 py-1 rounded-md'>
+                                                <span className=" " style={{maxWidth:"300px", wordWrap:'break-word', whiteSpace:'normal'}}> {data.message} </span>
+                                                <span className="text-xs text-gray-400 ml-2">{formatTime(data.date)}</span>
+                                            </div>
                                         </div>
                                     :
-                                        <div  className="my-3">
-                                            <span className="bg-slate-700 px-2 py-1 rounded-md" style={{maxWidth:"300px", wordWrap:'break-word', whiteSpace:'normal'}}> {data.message} </span>
+                                        <div  className="my-3 flex">
+                                            <div className='bg-slate-700 px-2 py-1 rounded-md'>
+                                                <span style={{maxWidth:"300px", wordWrap:'break-word', whiteSpace:'normal'}}> {data.message} </span>
+                                                <span className="text-xs text-gray-400 ml-2">{formatTime(data.date)}</span>
+                                            </div>
                                         </div>
                                     }
                                 </div>
