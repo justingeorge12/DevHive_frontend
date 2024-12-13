@@ -180,7 +180,11 @@ function AskQuestion() {
                 setIsChecked(false)
                 
                 toast.success('your Question submitted successfully')
-                // navigate('/questions', {state:{statefilter:'newest'}})
+
+                console.log(res,'---------------------------=======================')
+                
+                // navigate('/answer',{state:{question_id:question.id}})
+                
             } 
             catch(err) {
                 console.log(err)
@@ -199,8 +203,6 @@ function AskQuestion() {
         else{
             toast.error('please fix the errors then submit')
         }
-
-
 
 
 

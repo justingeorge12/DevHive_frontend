@@ -27,7 +27,7 @@ function Chatarea() {
 
     useEffect(() => {
         const token = localStorage.getItem('access'); 
-        const socket = new WebSocket(`ws://localhost:8001/ws/chat/${receiver_id}/?token=${token}`);
+        const socket = new WebSocket(`wss://localhost:8001/ws/chat/${receiver_id}/?token=${token}`);
         setSocket(socket);
     
         socket.onmessage = (e) => {
