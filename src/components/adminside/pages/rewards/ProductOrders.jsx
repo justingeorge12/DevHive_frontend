@@ -60,7 +60,7 @@ function ProductOrders() {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="5" className="text-center py-4">
+                                        <td colSpan="6" className="text-center py-4">
                                             <div className="flex flex-col justify-center items-center">
                                                 <p className="text-5xl mb-2 opacity-50">📭</p>
                                                 <p className="text-xl font-mono">No Data</p>
