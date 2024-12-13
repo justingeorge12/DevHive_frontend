@@ -24,6 +24,7 @@ function Tags() {
         try {
             setLoading(true);
             const res = await api.get(url);
+            console.log(res, '-----------------')
             setList(res.data.results || []);
             setNextPage(res.data.next);
             setPreviousPage(res.data.previous);
