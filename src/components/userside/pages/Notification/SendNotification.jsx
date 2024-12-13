@@ -7,7 +7,7 @@ function SendNotification() {
 
   useEffect(() => {
     const token = localStorage.getItem("access");
-    const socket = new WebSocket(`ws://localhost:8001/ws/notifications/?token=${token}`);
+    const socket = new WebSocket(`wss://devhive.justingeorge.site/ws/notifications/?token=${token}`);
 
     socket.onopen = () => {
       console.log("WebSocket is connected");
