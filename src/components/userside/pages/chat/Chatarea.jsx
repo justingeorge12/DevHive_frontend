@@ -178,15 +178,14 @@ function Chatarea() {
                                         <div className="my-3 mr-3 flex justify-end">
                                             <div className='bg-blue-950 px-2 py-1 rounded-md'>
                                                 <span className=" " style={{maxWidth:"300px", wordWrap:'break-word', whiteSpace:'normal'}}> {data.message} </span>
-
-                                                <span className="text-xs text-gray-400 ml-2">{formatTime ? formatTime(data.date) : 'now'}</span>
+                                                <span className="text-xs text-gray-400 ml-2">{formatTime(data.date)}</span>
                                             </div>
                                         </div>
                                     :
                                         <div  className="my-3 flex">
                                             <div className='bg-slate-700 px-2 py-1 rounded-md'>
                                                 <span style={{maxWidth:"300px", wordWrap:'break-word', whiteSpace:'normal'}}> {data.message} </span>
-                                                <span className="text-xs text-gray-400 ml-2">{formatTime ? formatTime(data.date) : 'now'}</span>
+                                                <span className="text-xs text-gray-400 ml-2">{formatTime(data.date)}</span>
                                             </div>
                                         </div>
                                     }
