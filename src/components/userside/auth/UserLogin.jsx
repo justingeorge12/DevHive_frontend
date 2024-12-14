@@ -41,10 +41,6 @@ function UserLogin() {
             console.log(server_res,'ssssssssrvr res')
             console.log(server_res.data)
             if (server_res.status === 200) {
-                // localStorage.setItem(ACCESS_TOKEN, server_res.data.access_token)
-                // localStorage.setItem(REFRESH_TOKEN, server_res.data.refresh_token)
-                // localStorage.setItem('role', 'user')
-                // localStorage.setItem('user_id', server_res.data.id)
 
                 const { access_token, refresh_token, id } = server_res.data;
                 dispatch(loginSuccess({ access_token, refresh_token, user_id: id, role:'user' }));
