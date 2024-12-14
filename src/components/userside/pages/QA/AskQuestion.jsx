@@ -43,7 +43,6 @@ function AskQuestion() {
     const [input, setInput] = useState('');                 // tags input
 
     const [TagDatabase, setTagDatabase] = useState([])      // tag from backend
-    // const [suggestion, setSuggestion] = useState()
 
     const [error, setError] = useState([])                   // error validation
     const [isChecked, setIsChecked] = useState(false)        // checkbox
@@ -157,15 +156,6 @@ function AskQuestion() {
     }
 
 
-// `/searchquestion/?q=${searchQuery}`
-
-
-
-
-
-
-
-
     const handleFormSubmit = async (e) => {
         e.preventDefault()
 
@@ -194,7 +184,6 @@ function AskQuestion() {
                     }
                 }
                 else{
-                    console.log(err, 'errrrrrrrrrrrrrrrrrrrrrrrrrrrrr rr')
                     toast.error('there are some error, please try after some time')
                 }
             }
@@ -204,57 +193,7 @@ function AskQuestion() {
             toast.error('please fix the errors then submit')
         }
 
-
-
-
-
-
-
-
-
-        // const newErr = {}
-
-        // if (tags.length > 0) {
-        //     console.log('okey to submit')
-        //     if (value.trim().split(/\s+/).length >= 8 ) {
-        //         toast.success('can be submitted')
-        //     }
-        //     else {
-        //         newErr.valueLength = 'there should be atleast 8 words'
-        //         console.log('there 8 words for value')
-        //     }
-        // }
-        // else{
-        //     newErr.countTag = 'there should be atleast one tag'
-        //     console.log('there shoul 1 tag')
-        // }
-
-        // setError(newErr)
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    console.log(title)
-    console.log(value)
-    console.log(error, '..................rrror.................')
-    console.log(tags)
-    console.log(isChecked)
-    
 
     return(
         <div>
