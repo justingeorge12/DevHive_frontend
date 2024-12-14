@@ -171,9 +171,9 @@ function AskQuestion() {
                 
                 toast.success('your Question submitted successfully')
 
-                console.log(res,'---------------------------=======================')
-                
-                // navigate('/answer',{state:{question_id:question.id}})
+                const question_id = res.data.id
+                console.log(question_id)
+                navigate('/answer',{state:{question_id:question_id}})
                 
             } 
             catch(err) {
