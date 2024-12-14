@@ -123,6 +123,7 @@ function Answer() {
                 console.log(res.data)
                 const newAnswer = res.data;
                 setAnswers((prevAnswers) => [newAnswer, ...prevAnswers]);
+                fetchQuesDetails()
 
             }
         }
